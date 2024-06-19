@@ -1,10 +1,6 @@
 {
   "index": "Introduction",
   "discord-bots": "Discord Bots",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
   "game-servers": {
     "title": "Game Servers ↗",
     "type": "page",
