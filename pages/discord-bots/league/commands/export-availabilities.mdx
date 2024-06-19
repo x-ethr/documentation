@@ -1,0 +1,32 @@
+import {Callout} from "nextra-theme-docs";
+
+<br/>
+
+# `/export availabilities` command
+
+Export the current team availabilities in JSON
+
+## Example Schema
+
+```json5
+[
+    {
+        snowflake: string,
+        name: string,
+        region: string,
+        elo: number,
+        availability: {
+            tuesday: [number, number, number];
+            wednesday: [number, number, number];
+            thursday: [number, number, number];
+            friday: [number, number, number];
+            saturday: [number, number, number];
+        },
+        locationPreference: {
+            first: string,
+            second: string,
+            third: string
+        }
+    }
+]
+```

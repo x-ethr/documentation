@@ -1,0 +1,42 @@
+import {Callout, Steps} from "nextra-theme-docs";
+
+# Mathematics
+
+## Elo Calculation
+
+```ts
+const CEILING = 150; // Elo delta ceiling
+const FLOOR = 25; // Elo delta floor
+
+/***
+ * Function that matches two teams against each other
+ * @param R_A - Team A's current Elo (ex: 1300)
+ * @param R_B - Team B's current Elo (ex: 1500)
+ * @param m_A - Team A's rounds (ex: 3)
+ * @param m_B - Team B's rounds (ex: 0)
+ */
+function match(R_A: number, R_B: number, m_A: number, m_B: number) {
+	// Algorithm as specified in the docs
+	const alg: number = R_A + CEILING * ((m_A / (m_A + m_B)) - (1 / (1 + 10 ** ((R_B - R_A) / 400)))) + FLOOR * ((m_A - m_B) / Math.abs(m_A - m_B));
+
+	// Ensure change in elo is always positive for the winner
+	let delta: number = Math.abs(alg - R_A);
+
+	// Ensure change in elo is greater than or equal to the floor
+	if (delta < FLOOR) delta = FLOOR;
+
+	// Ensure change in elo is less than or equal to the ceiling
+	if (delta > CEILING) delta = CEILING;
+
+	const results: MatchResults = {
+		winnerEloOld: R_A,
+		loserEloOld: R_B,
+		rounds: [m_A, m_B],
+		deltaElo: delta,
+		winnerElo: R_A + delta,
+		loserElo: R_B - delta
+	};
+
+	return results;
+}
+```

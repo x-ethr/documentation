@@ -1,0 +1,30 @@
+import {Callout} from "nextra-theme-docs";
+
+<br/>
+
+# `/elo` commands
+All elo related commands.
+
+<Callout type={"info"}>It is recommended to only have `Organizers` or moderators use this command.</Callout>
+
+<br/>
+
+## `/elo match`
+Match two teams together. This command enters in scores between two teams and reports the match in `#scores`.
+
+<Callout type={"info"}>If a mistake happens, use the `/admin match-void` command.</Callout>
+
+**Required Options**
+- `winner` *(Role)* - The winning team's role
+- `loser` *(Role)* - The losing team's role
+- `winning_score` *(Number)* - The winning score
+- `losing_score` *(Number)* - The losing score
+
+<br/>
+
+## `/elo override`
+Set a team's elo manually.
+
+**Required Options**
+- `team` *(Role)* - The target team's role
+- `elo` *(Number)* - The target team's new elo

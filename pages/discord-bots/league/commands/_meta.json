@@ -1,4 +1,20 @@
 {
   "roster": "roster",
-  "admin": "admin"
+  "admin": "admin",
+  "create-team": "create-team",
+  "sync-users": "sync-users",
+  "player-card": "player-card",
+  "edit-team": "edit-team",
+  "disband-team": "disband-team",
+  "leave-team": "leave-team",
+  "reform-team": "reform-team",
+  "schedule": "schedule",
+  "team-availability": "team-availability",
+  "export-availabilities": "export-availabilities",
+  "elo": "elo",
+  "say": "say",
+  "demerit": "demerit",
+  "timeout": "timeout",
+  "version": "version",
+  "config": "config"
 }

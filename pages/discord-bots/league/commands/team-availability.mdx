@@ -1,0 +1,41 @@
+import {Callout} from "nextra-theme-docs";
+
+<br/>
+
+# `/team-availability` commands
+
+All team-availability related commands.
+
+<Callout type={"warning"}>These commands have not been changed since their original purpose in NACL. It is planned to get a refactor soon</Callout>
+
+<br/>
+
+## `/team-availability set-time`
+
+Set your team's availability.
+
+<Callout type={"info"}>You must be the `Captain` of your team to perform this command</Callout>
+
+**Required Options**
+- `day` *(Role)* - Can only pick one of the following: all, Tuesday, Wednesday, Thursday, Friday, or Saturday
+- `slot` *(Role)* - Can only pick one of the following: all, 1, 2, 3 (slots corresponding to region-specific times)
+- `available` *(Boolean)* - True if you are able to play, False if not
+
+<br/>
+
+## `/team-availability set-locations`
+
+Set your team's location preferences
+
+<Callout type={"info"}>You must be the `Captain` of your team to perform this command</Callout>
+
+**Additional Options**
+- `first` *(Region)* *Optional* - Your first choice location
+- `second` *(Region)* *Optional* - Your second choice location
+- `third` *(Region)* *Optional* - Your third choice location
+
+<br/>
+
+## `/team-availability view`
+
+View your team's availability.

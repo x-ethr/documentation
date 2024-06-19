@@ -1,0 +1,20 @@
+import {Callout} from "nextra-theme-docs";
+
+<br/>
+
+# `/create-team` command
+
+Creates a team.
+
+<Callout type={"info"}>It is recommended to only have Organizers or Moderators use this command</Callout>
+<Callout type={"warning"}>
+    Discord servers are limited to 250 roles. If you need space, delete `(Disbanded)` roles that are archived.
+</Callout>
+
+**Required Options**
+- `team_name` *(String)* - The name of the team
+- `captain` *(User)* - The captain of the team
+- `region` *(Region)* - The region of the team
+
+**Additional Options**
+- `color` *(String)* *Optional* - The team color in hexcode
