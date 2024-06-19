@@ -1,0 +1,44 @@
+import {Callout} from "nextra/components";
+
+<br/>
+
+# `/roster` commands
+All roster related commands.
+
+<br/>
+
+## `/roster view`
+View a team's roster.
+
+**Options**
+- `team` *(Role)* *Optional* - The team whose roster you wish to view. If you leave this empty, this command will show
+you your own team if you are currently on one.
+
+<br/>
+
+## `/roster add`
+Add a player to your team.
+
+**Options**
+- `player` *(User)* - The player to be added to your team
+
+<Callout type={"info"}>The player must not be already on a team and must have the `Free Agent` role.</Callout>
+
+<br/>
+
+## `/roster kick`
+Kick a player from your team.
+
+**Options**
+- `player` *(User)* - The player to be kicked from your team
+
+<br/>
+
+## `/roster set-captain`
+Set a new captain for your team (this removes your own captain).
+Kick a player from your team.
+
+**Options**
+- `player` *(User)* - The player on your team to give captain
+
+<Callout type={"info"}>You must be on a team and the `Captain` for that team.</Callout>

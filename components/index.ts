@@ -1,1 +1,2 @@
-import * as Logo from "./logo";
+export * as Logo from "./logo";
+export * from "./peccy";

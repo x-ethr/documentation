@@ -1,0 +1,32 @@
+import {
+    Callout,
+    Button,
+    Steps
+} from "nextra/components";
+
+# Installation
+
+<Steps>
+    ### Step 1
+
+    Click [here](https://discord.com/oauth2/authorize?client_id=1249791301487034438&permissions=8&integration_type=0&scope=bot) to add the bot to your Discord server.
+
+    ### Step 2
+
+    #### Set the command permissions in your Discord Server's settings
+
+    **Server Settings &rarr; Integrations &rarr; Bots and Apps &rarr; ETHR League**
+
+    <Callout type={"info"}>It is recommended you disable all commands by default and work your way from there.</Callout>
+
+    <Callout type={"warning"}>Make sure all `admin` and `sync-users` commands are not executable by default.</Callout>
+
+    ### Step 3
+    Ensure you have a bot that handles react for roles. The role `Free Agent` is required to be able to join a team.
+    This allows players to toggle getting added to teams.
+
+    ### Step 4 (Optional)
+    Use the command `/config` to configure the bot.
+</Steps>
+
+And you're done! `:D`

@@ -1,15 +1,14 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "discord-bots": "Discord Bots",
   "about": {
     "title": "About",
     "type": "page"
   },
-  "contact": {
-    "title": "Contact ↗",
+  "game-servers": {
+    "title": "Game Servers ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://ethr.gg",
     "newWindow": true
   }
 }

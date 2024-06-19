@@ -1,0 +1,90 @@
+import {
+    Callout
+} from "nextra/components";
+
+<Callout type={"warning"}>Make sure all `admin` commands are not executable by default.</Callout>
+
+<br/>
+
+# `/admin` commands
+
+## `/admin team-disband`
+Disband a team
+
+**Options**
+- `team` *(Role)* - The target team you wish to disband
+
+<br/>
+
+## `/admin roster-add`
+Add someone to a roster
+
+**Options**
+- `team` *(Role)* - The target team you wish to add a player to
+- `player` *(User)* - The target player to add
+
+<br/>
+
+## `/admin roster-kick`
+Kick someone from a roster
+
+**Options**
+- `team` *(Role)* - The team that the target player is on
+- `player` *(User)* - The target player to kick
+
+<br/>
+
+## `/admin roster-kick-by-id`
+Kick someone from a roster by their id (if they left server)
+
+**Options**
+- `team` *(Role)* - The team that the target player is on
+- `player` *(User)* - The target player's id (Discord snowflake) to kick
+
+<Callout type={"warning"}>
+    This is a fallback command incase `/admin roster-kick` fails and there is drift between our database and your server.
+</Callout>
+
+<br/>
+
+## `/admin roster-set-captain`
+Set captain for a team
+
+**Options**
+- `team` *(Role)* - The target team you wish to switch captain on
+- `player` *(User)* - The target player to set as captain
+
+<br/>
+
+## `/admin stats`
+High-level stats for current players and teams
+
+<br/>
+
+## `/admin match-void`
+Void a match
+
+**Options**
+- `match_id` *(String)* - The match id you wish to void.
+
+<Callout type={"info"}>You can find the `match_id` in the `#scores` channel under each match message.</Callout>
+
+<br/>
+
+## `/admin team-set-region`
+Set region for a team
+
+**Options**
+- `team` *(Role)* - The target team you wish to set region
+- `region` *(Region)* - The region the team will be set to
+
+<br/>
+
+## `/admin player-set-region`
+Set region for a player
+
+**Options**
+- `player` *(User)* - The target player you wish to set region
+- `region` *(Region)* - The region the player will be set to
+
+<br/>
