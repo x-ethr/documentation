@@ -1,10 +1,4 @@
 {
   "index": "Introduction",
-  "discord-bots": "Discord Bots",
-  "game-servers": {
-    "title": "Game Servers ↗",
-    "type": "page",
-    "href": "https://ethr.gg",
-    "newWindow": true
-  }
+  "discord-bots": "Discord Bots"
 }
