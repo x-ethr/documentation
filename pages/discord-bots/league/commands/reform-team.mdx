@@ -1,19 +1,21 @@
 import {Callout} from "nextra-theme-docs";
 
-<br/>
+# `/reform-team`
 
-# `/reform-team` command
+Reform a previously disbanded team.
 
-<Callout type={"info"}>It is recommended to only have Organizers or Moderators use this command</Callout>
-<Callout type={"warning"}>
-    This command will only work if you did not delete the archived `(Disbanded)` team's role.
+## Options
+
+- `team` `Role`
+- `captain` `User`
+- `color` `String` optional
+
+## Notes
+
+- The archived team role must still exist
+- The selected captain must not already be on a team
+- The captain receives both the team role and the `Captain` role
+
+<Callout type="warning">
+If the archived team role was deleted manually, the bot cannot reform that team.
 </Callout>
-
-Reforms a team that was previously disbanded.
-
-**Required Options**
-- `team` *(Role)* - The role of the team to reform
-- `captain` *(User)* - The captain of the team
-
-**Additional Options**
-- `color` *(Region)* *Optional* - The team color in hexcode

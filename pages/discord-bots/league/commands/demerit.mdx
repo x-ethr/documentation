@@ -1,28 +1,20 @@
-import {Callout} from "nextra-theme-docs";
+# `/demerit`
 
-<br/>
+Track and review demerits on player records.
 
-# `/demerit` commands
+## Subcommands
 
-All demerit related commands.
+### `/demerit give`
 
-<Callout type={"info"}>It is recommended to only have `Organizers` or moderators use this command.</Callout>
+Give a demerit to a user.
 
-<br/>
+- `user` `User`
+- `reason` `String`
 
-## `/demerit give`
+The bot stores the demerit in the player record and also sends a DM to the user.
 
-Give a demerit to a user (these are tracked)
+### `/demerit list`
 
-**Required Options**
-- `user` *(User)* - The target user
-- `reason` *(String)* - The reason for the demerit
+List all demerits for a user.
 
-<br/>
-
-## `/demerit list`
-
-List all demerits that a user has
-
-**Required Options**
-- `user` *(User)* - The target user
+- `user` `User`

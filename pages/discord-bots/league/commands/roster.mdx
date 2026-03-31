@@ -1,44 +1,35 @@
-import {Callout} from "nextra-theme-docs";
+# `/roster`
 
-<br/>
-
-# `/roster` commands
-All roster related commands.
-
-<br/>
+Captain-facing roster management plus roster viewing.
 
 ## `/roster view`
+
 View a team's roster.
 
-**Additional Options**
-- `team` *(Role)* *Optional* - The team whose roster you wish to view. If you leave this empty, this command will show
-you your own team if you are currently on one.
-
-<br/>
+- `team` `Role`
 
 ## `/roster add`
+
 Add a player to your team.
 
-**Options**
-- `player` *(User)* - The player to be added to your team
+- `player` `User`
 
-<Callout type={"info"}>The player must not be already on a team and must have the `Free Agent` role.</Callout>
+Requirements enforced by the bot:
 
-<br/>
+- you must be a captain
+- the target must not already be on a team
+- the target must have the `Free Agent` role
+- roster size cannot exceed the guild roster limit
+- cooldown rules apply
 
 ## `/roster kick`
+
 Kick a player from your team.
 
-**Options**
-- `player` *(User)* - The player to be kicked from your team
-
-<br/>
+- `player` `User`
 
 ## `/roster set-captain`
-Set a new captain for your team (this removes your own captain).
-Kick a player from your team.
 
-**Options**
-- `player` *(User)* - The player on your team to give captain
+Transfer captaincy to another player on your team.
 
-<Callout type={"info"}>You must be on a team and the `Captain` for that team.</Callout>
+- `player` `User`

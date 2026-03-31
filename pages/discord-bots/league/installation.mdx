@@ -3,26 +3,67 @@ import {Callout, Steps} from "nextra-theme-docs";
 # Installation
 
 <Steps>
-    ### Step 1
+### Step 1
 
-    Click [here](https://discord.com/oauth2/authorize?client_id=1249791301487034438&permissions=8&integration_type=0&scope=bot) to add the bot to your Discord server.
+Invite the bot to your Discord server.
 
-    ### Step 2
+### Step 2
 
-    #### Set the command permissions in your Discord Server's settings
+Wait for the bot to finish its initial server setup.
 
-    **Server Settings &rarr; Integrations &rarr; Bots and Apps &rarr; ETHR League**
+On first join, the bot creates its baseline roles and channels if they do not already exist.
 
-    <Callout type={"info"}>It is recommended you disable all commands by default and work your way from there.</Callout>
+### Step 3
 
-    <Callout type={"warning"}>Make sure all `admin` and `sync-users` commands are not executable by default.</Callout>
+Activate the guild.
 
-    ### Step 3
-    Ensure you have a bot that handles react for roles. The role `Free Agent` is required to be able to join a team.
-    This allows players to toggle getting added to teams.
+The bot is gated by manual guild activation right now. Until activation is completed, guild commands will return an activation error.
 
-    ### Step 4 (Optional)
-    Use the command `/config` to configure the bot.
+<Callout type="warning">
+Contact <code>@peenie</code> to activate your server.
+</Callout>
+
+### Step 4
+
+Run `/sync-users`.
+
+This creates missing player records for current guild members and makes sure the guild exists in the database.
+
+### Step 5
+
+Set command permissions in Discord.
+
+Recommended approach:
+
+- Only staff should have access to organizer and admin commands.
+- Captains should only have access to captain-facing commands.
+- Players should have access only to player-facing commands such as `/player-card`.
+
+### Step 6
+
+Configure the guild with `/config`.
+
+This is where you set:
+
+- enabled regions
+- roster size
+- weekly matchmaking rules
+- schedule announcement channel
+- automatic weekly schedule generation time
+
+### Step 7
+
+Make sure players can receive the `Free Agent` role.
+
+The bot expects players who are available to join teams to carry the `Free Agent` role.
 </Steps>
 
-And you're done! `:D`
+## After Installation
+
+Most leagues do this next:
+
+1. Create or reform teams
+2. Let captains set roster and availability
+3. Configure matchmaking with `/config`
+4. Generate schedules with `/schedule generate`
+5. Report results with `/report-match`

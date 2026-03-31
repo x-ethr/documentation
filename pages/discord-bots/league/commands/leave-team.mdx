@@ -1,7 +1,11 @@
-import {Callout} from "nextra-theme-docs";
+# `/leave-team`
 
-<br/>
+Leave your current team.
 
-# `/leave-team` command
+## What Happens
 
-Remove yourself from your current team's roster.
+- Your team role is removed
+- Your `Free Agent` role is added
+- Your player record is detached from the team
+- If you were captain, the bot tries to assign a new captain
+- If you were the last player, the team is disbanded automatically

@@ -1,88 +1,75 @@
 import {Callout} from "nextra-theme-docs";
 
-<br/>
+# `/admin`
 
-# `/admin` commands
+High-trust organizer tooling.
 
-<Callout type={"warning"}>Make sure all `admin` commands are not executable by default.</Callout>
-
-## `/admin team-disband`
-Disband a team
-
-**Options**
-- `team` *(Role)* - The target team you wish to disband
-
-<br/>
-
-## `/admin roster-add`
-Add someone to a roster
-
-**Options**
-- `team` *(Role)* - The target team you wish to add a player to
-- `player` *(User)* - The target player to add
-
-<br/>
-
-## `/admin roster-kick`
-Kick someone from a roster
-
-**Options**
-- `team` *(Role)* - The team that the target player is on
-- `player` *(User)* - The target player to kick
-
-<br/>
-
-## `/admin roster-kick-by-id`
-Kick someone from a roster by their id (if they left server)
-
-**Options**
-- `team` *(Role)* - The team that the target player is on
-- `player` *(User)* - The target player's id (Discord snowflake) to kick
-
-<Callout type={"warning"}>
-    This is a fallback command incase `/admin roster-kick` fails and there is drift between our database and your server.
+<Callout type="warning">
+Do not grant `/admin` broadly. These commands modify live roster, team, and match state.
 </Callout>
 
-<br/>
+## Subcommands
 
-## `/admin roster-set-captain`
-Set captain for a team
+### `/admin stats`
 
-**Options**
-- `team` *(Role)* - The target team you wish to switch captain on
-- `player` *(User)* - The target player to set as captain
+Shows high-level active team and player counts for the guild.
 
-<br/>
+### `/admin roster-kick`
 
-## `/admin stats`
-High-level stats for current players and teams
+Kick a user from a specific team.
 
-<br/>
+- `team` `Role`
+- `player` `User`
 
-## `/admin match-void`
-Void a match
+### `/admin roster-kick-by-id`
 
-**Options**
-- `match_id` *(String)* - The match id you wish to void.
+Kick a user from a specific team by raw Discord ID. This is the fallback for users who left the server.
 
-<Callout type={"info"}>You can find the `match_id` in the `#scores` channel under each match message.</Callout>
+- `team` `Role`
+- `player` `String`
 
-<br/>
+### `/admin roster-add`
 
-## `/admin team-set-region`
-Set region for a team
+Add a user to a specific team.
 
-**Options**
-- `team` *(Role)* - The target team you wish to set region
-- `region` *(Region)* - The region the team will be set to
+- `team` `Role`
+- `player` `User`
 
-<br/>
+### `/admin roster-set-captain`
 
-## `/admin player-set-region`
-Set region for a player
+Set a team's captain.
 
-**Options**
-- `player` *(User)* - The target player you wish to set region
-- `region` *(Region)* - The region the player will be set to
+- `team` `Role`
+- `player` `User`
+
+### `/admin team-set-region`
+
+Change a team's region.
+
+- `team` `Role`
+- `region` `String`
+
+### `/admin player-set-region`
+
+Change a player's region.
+
+- `player` `User`
+- `region` `String`
+
+### `/admin team-disband`
+
+Disband and archive a team.
+
+- `team` `Role`
+
+### `/admin captain-role-cleanup`
+
+Removes stale `Captain` roles and clears stale captain database pointers that no longer match active leaderboard teams.
+
+### `/admin match-void`
+
+Void a match by match ID and revert the recorded stats and ELO changes.
+
+- `match_id` `String`
 
 <br/>

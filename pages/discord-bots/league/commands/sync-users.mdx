@@ -1,11 +1,14 @@
 import {Callout} from "nextra-theme-docs";
 
-<br/>
+# `/sync-users`
 
-# `/sync-users` command
+Sync guild users into the bot database.
 
-<Callout type={"warning"}>
-    Do not use this command unless you are seeing odd errors.
+## What It Does
+
+- Creates the guild record if it does not exist
+- Creates missing player records for current guild members
+
+<Callout type="warning">
+This is primarily a repair/setup command. It is useful on first setup and when guild/database drift is suspected.
 </Callout>
-
-This command is used to sync any drift between your Discord server and our databases.

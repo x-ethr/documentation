@@ -1,41 +1,41 @@
-import {Callout} from "nextra-theme-docs";
+# `/team-availability`
 
-<br/>
-
-# `/team-availability` commands
-
-All team-availability related commands.
-
-<Callout type={"warning"}>These commands have not been changed since their original purpose in NACL. It is planned to get a refactor soon</Callout>
-
-<br/>
+Captain-facing availability and server preference commands.
 
 ## `/team-availability set-time`
 
-Set your team's availability.
+Set team availability for scheduling.
 
-<Callout type={"info"}>You must be the `Captain` of your team to perform this command</Callout>
+- `day` `String`
+- `slot` `String`
+- `available` `Boolean`
 
-**Required Options**
-- `day` *(Role)* - Can only pick one of the following: all, Tuesday, Wednesday, Thursday, Friday, or Saturday
-- `slot` *(Role)* - Can only pick one of the following: all, 1, 2, 3 (slots corresponding to region-specific times)
-- `available` *(Boolean)* - True if you are able to play, False if not
+Supported days:
 
-<br/>
+- `all`
+- `Tuesday`
+- `Wednesday`
+- `Thursday`
+- `Friday`
+- `Saturday`
+
+Supported slots:
+
+- `all`
+- `1`
+- `2`
+- `3`
 
 ## `/team-availability set-locations`
 
-Set your team's location preferences
+Set preferred server locations for your team.
 
-<Callout type={"info"}>You must be the `Captain` of your team to perform this command</Callout>
+- `first` `String` optional
+- `second` `String` optional
+- `third` `String` optional
 
-**Additional Options**
-- `first` *(Region)* *Optional* - Your first choice location
-- `second` *(Region)* *Optional* - Your second choice location
-- `third` *(Region)* *Optional* - Your third choice location
-
-<br/>
+All three location choices must be unique.
 
 ## `/team-availability view`
 
-View your team's availability.
+View your team's current availability.

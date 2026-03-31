@@ -1,0 +1,25 @@
+# `/report-match`
+
+Winner-captain match reporting.
+
+## Who Can Use It
+
+Only the captain of the winning team can report the result.
+
+## Options
+
+- `winner` `Role`
+- `loser` `Role`
+- `winning_score` `Number`
+- `losing_score` `Number`
+
+## Behavior
+
+- validates that the caller is the winning team's captain
+- applies the report-match cooldown
+- updates both teams' ELO and records
+- creates a match record in the database
+- updates the leaderboard
+- posts the result message with the match ID
+
+If a result needs to be reverted, use `/admin match-void`.

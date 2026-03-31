@@ -1,31 +1,62 @@
 # Basic Usage
 
-## How to Join a Team
+## Organizer Setup Flow
 
-### In order to join a team, you must meet the following requirements:
+If you are setting up a new guild:
 
-- You are a `Free Agent` *(you have the `Free Agent` role)*
-- The team's `Captain` must use the `/roster add` command once the previous step is completed
+1. Invite the bot
+2. Get the guild activated
+3. Run `/sync-users`
+4. Run `/config` to set regions, roster size, and matchmaking
+5. Create or reform teams
 
+## Player Flow
 
-## How to Create a Team
+To join a team:
 
-In order to create a team, you must meet the following requirements:
+- You must have the `Free Agent` role
+- A captain uses `/roster add` to add you
 
-- Message an `Organizer` or Moderator to create your team
+To leave a team:
 
+- Use `/leave-team`
 
-## How to Manage Your Team
+If the departing player is the captain, captaincy is reassigned automatically when possible. If the captain was the last remaining player, the team is disbanded.
 
-Team management is done 100% through our bot. These are the commands you as a `Captain` have access to:
+## Captain Flow
 
-- `/roster add` - Adds a member to your team
-- `/roster kick` - Kicks a member from your team
-- `/roster set-captain` - Sets a new captain and removes yourself as one
-- `/edit-team` - Change your team's name and color (can only execute once a week)
-- `/disband-team` - Disband your team. This kicks everyone and sets your team to `Disbanded`. The data and role are saved in case you want to reform again
-- `/team-availability set` - Set your team's availability. This will determine what matches you get during the week. *By default, all slots are set to false (no availability)*
+Captains are responsible for:
 
-Some other team commands that everyone has access to:
-- `/roster view` - View a team's roster
-- `/team-availability view` - View your team's availability.
+- `/roster add`
+- `/roster kick`
+- `/roster set-captain`
+- `/edit-team`
+- `/disband-team`
+- `/team-availability set-time`
+- `/team-availability set-locations`
+
+## Weekly Matchmaking Flow
+
+The weekly schedule system uses:
+
+- team availability
+- region
+- ELO bounds
+- per-team weekly match cap
+- recent match history penalties to reduce back-to-back repeats
+
+Typical workflow:
+
+1. Captains set availability
+2. Organizer configures matchmaking with `/config`
+3. Organizer runs `/schedule generate` or waits for automatic generation
+4. Schedule is posted to the configured announcement channel
+
+## Reporting Results
+
+There are two ways to record results:
+
+- `/report-match`: winner's captain reports the match
+- `/elo match`: organizer-style manual result entry
+
+If a result must be undone, use `/admin match-void`.

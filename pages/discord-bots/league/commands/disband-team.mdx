@@ -1,8 +1,14 @@
-import {Callout} from "nextra-theme-docs";
+# `/disband-team`
 
-<br/>
+Disband your current team.
 
-# `/disband-team` command
+## What It Does
 
-Disbands and archives your team in case you wish to use `/reform-team` to re-activate. You will no longer show
-on the leaderboard and the roster will get emptied.
+- Marks the team as disbanded in the database
+- Removes the captain pointer
+- Removes all team members from the roster
+- Gives affected members the `Free Agent` role
+- Archives the team role instead of deleting it
+- Updates the leaderboard
+
+The archived role can be used later with `/reform-team`.

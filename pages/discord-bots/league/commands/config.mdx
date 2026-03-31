@@ -1,21 +1,77 @@
 import {Callout} from "nextra-theme-docs";
 
-<br/>
+# `/config`
 
-# `/config` command
+Guild configuration command.
 
-Bot configuration command.
+Only an `Organizer` or a server admin can use it.
 
-## Defaults
+If you run `/config` with no options, the bot returns the current guild configuration.
 
-| Config Value    | Default             |
-|-----------------|---------------------|
-| regions         | `NA,SA,EU,OCE,ASIA` |
-| max-roster-size | `10`                |
+## Base Guild Config
 
+### `regions`
 
-**Additional Options**
-- `regions` *(String)* *Optional* - Comma separated list of region values to enable. Ex: `NA,NA-EAST,NA-CENTRAL,NA-WEST,SA,EU,OCE,ASIA`
-- `max-roster-size` *(String)* *Optional* - Maximum size each team's roster can reach. Ex: `10`
+Comma-separated enabled regions.
 
-List of acceptable regions: `NA,NA-EAST,NA-CENTRAL,NA-WEST,SA,EU,OCE,ASIA`
+Example:
+
+```text
+NA,EU,OCE
+```
+
+### `max-roster-size`
+
+Maximum allowed roster size for teams in this guild.
+
+## Matchmaking Config
+
+These values live inside the guild's matchmaking namespace and are unique per guild.
+
+### `matchmaking-max-matches`
+
+Maximum number of scheduled matches a team can receive in a week.
+
+### `matchmaking-elo-floor`
+
+Minimum allowed ELO difference for a generated matchup.
+
+### `matchmaking-elo-ceiling`
+
+Maximum allowed ELO difference for a generated matchup.
+
+### `matchmaking-days`
+
+Comma-separated enabled matchmaking days.
+
+Allowed values:
+
+```text
+tuesday,wednesday,thursday,friday,saturday
+```
+
+### `matchmaking-channel`
+
+Text channel where generated weekly schedules are posted.
+
+### `matchmaking-gen-day`
+
+Day of week when automatic schedule generation runs.
+
+### `matchmaking-gen-hour-utc`
+
+UTC hour for automatic generation.
+
+### `matchmaking-gen-minute-utc`
+
+UTC minute for automatic generation.
+
+## Example
+
+```text
+/config matchmaking-max-matches:1 matchmaking-elo-floor:0 matchmaking-elo-ceiling:250 matchmaking-days:tuesday,thursday,friday matchmaking-channel:#scores matchmaking-gen-day:monday matchmaking-gen-hour-utc:18 matchmaking-gen-minute-utc:0
+```
+
+<Callout type="info">
+The automatic scheduler is UTC-based and only fires if the bot is online during the configured minute.
+</Callout>

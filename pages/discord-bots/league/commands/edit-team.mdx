@@ -1,11 +1,14 @@
-import {Callout} from "nextra-theme-docs";
+# `/edit-team`
 
-<br/>
+Change your team's name or color.
 
-# `/edit-team` command
+## Options
 
-Change your team's name and/or color.
+- `name` `String` optional
+- `color` `String` optional
 
-**Additional Options**
-- `name` *(String)* *Optional* - The new name of the team. Must be between 1-35 chars
-- `color` *(String)* *Optional* - A new color in hexcode format. ex: `#FFFFFF`. To get a random color, write 'random'
+## Notes
+
+- This is a captain-facing command
+- Color must be a hex code such as `#FFFFFF`
+- The command enforces the bot's team editing rules in code, including cooldown logic
