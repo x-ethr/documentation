@@ -72,4 +72,8 @@ Void a match by match ID and revert the recorded stats and ELO changes.
 
 - `match_id` `String`
 
+The void reverses the exact rating change the match recorded — results from later
+matches are unaffected, so older matches can be voided safely. A match can only be
+voided once. The `match_id` is shown in `#scores` under each match message.
+
 <br/>

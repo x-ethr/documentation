@@ -13,6 +13,10 @@ Record a match manually and update both teams' ELO and records.
 
 This is the organizer-side alternative to `/report-match`.
 
+Scores must be non-negative whole numbers and the winning score must be greater than the
+losing score — if the reported winner lost, swap the teams. See
+[Mathematics](/discord-bots/league/mathematics) for how ratings are calculated.
+
 ## `/elo override`
 
 Set a team's ELO directly.

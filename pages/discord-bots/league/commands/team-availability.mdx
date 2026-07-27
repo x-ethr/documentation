@@ -13,11 +13,13 @@ Set team availability for scheduling.
 Supported days:
 
 - `all`
+- `Monday`
 - `Tuesday`
 - `Wednesday`
 - `Thursday`
 - `Friday`
 - `Saturday`
+- `Sunday`
 
 Supported slots:
 
@@ -25,6 +27,10 @@ Supported slots:
 - `1`
 - `2`
 - `3`
+
+Matches are only scheduled on the days the server has enabled (`matchmaking-days` in
+`/config`). Teams created before a day became a match day are treated as unavailable on
+that day until their captain sets it.
 
 ## `/team-availability set-locations`
 

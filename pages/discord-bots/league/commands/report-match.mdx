@@ -13,11 +13,14 @@ Only the captain of the winning team can report the result.
 - `winning_score` `Number`
 - `losing_score` `Number`
 
+Scores must be non-negative whole numbers and the winning score must be greater than the
+losing score. Draws cannot be reported.
+
 ## Behavior
 
 - validates that the caller is the winning team's captain
-- applies the report-match cooldown
-- updates both teams' ELO and records
+- applies the report-match cooldown (1 hour per winning team)
+- updates both teams' ELO and records (see [Mathematics](/discord-bots/league/mathematics))
 - creates a match record in the database
 - updates the leaderboard
 - posts the result message with the match ID
