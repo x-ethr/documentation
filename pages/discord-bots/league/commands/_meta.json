@@ -13,6 +13,8 @@
   "team-availability": "team-availability",
   "export-availabilities": "export-availabilities",
   "report-match": "report-match",
+  "match-history": "match-history",
+  "predict": "predict",
   "elo": "elo",
   "say": "say",
   "demerit": "demerit",

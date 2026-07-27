@@ -101,3 +101,29 @@ function match(R_A: number, m_A: number, R_B: number, m_B: number) {
 - Voiding a match (`/admin match-void`) reverses **exactly the rating change that match
   recorded** — it does not reset teams to a snapshot, so voiding an older match never
   erases results that happened after it. A match can only be voided once.
+
+## Seasons
+
+When an Organizer runs `/admin season-end`, final standings are archived and every
+team's rating is soft-reset toward 1500, keeping **half** the distance:
+
+```
+newRating = 1500 + round((oldRating - 1500) × 0.5)
+```
+
+Examples: 2000 → 1750, 1700 → 1600, 1000 → 1250. Standings order is preserved — the
+spread just compresses, so strong teams keep an edge while everyone starts the new
+season within reach. Season win/loss records reset to 0-0; archived placements are kept
+forever on each team.
+
+<Callout type={"info"}>
+    Predictions (`/predict`) use the same expected-score curve shown above, so the
+    percentages you see are exactly what the rating system believes.
+</Callout>
+
+## Leaderboard movement
+
+Leaderboard entries show weekly movement — ▲2 (climbed two places), ▼1 (dropped one),
+or 🆕 (newly ranked). Positions are compared against a snapshot that refreshes
+automatically once the previous one is at least 7 days old, and the arrows reset when a
+new season starts.

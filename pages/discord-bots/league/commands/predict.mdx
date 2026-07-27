@@ -1,0 +1,18 @@
+# `/predict`
+
+Predict the outcome of a matchup between two teams using the league's rating system.
+
+## Options
+
+- `team_a` `Role`
+- `team_b` `Role`
+
+## Output
+
+- Win probability for each team, from the same expected-score curve the elo system uses
+  (see [Mathematics](/discord-bots/league/mathematics)).
+- What's at stake: the exact rating gain/loss for every scoreline (3-0, 3-1, 3-2) in
+  either direction.
+
+Both teams must have an established rating (teams still showing `~` cannot be
+predicted).
