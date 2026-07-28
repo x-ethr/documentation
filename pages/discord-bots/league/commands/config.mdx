@@ -55,6 +55,17 @@ Defaults to all seven days.
 
 Text channel where generated weekly schedules are posted.
 
+### `matchmaking-admin-channel`
+
+Optional Organizer-side channel for schedule controls. When set, published schedules
+post **two** copies: a clean, button-free embed in `matchmaking-channel` for players,
+and a mirror in this channel carrying the **Report result** / **Edit schedule**
+buttons. Results and edits made on the mirror update the public copy automatically
+(and vice versa — results from `/report-match` update both).
+
+When not set, the buttons live directly on the public message. To go back to that
+single-message mode, set this option to the same channel as `matchmaking-channel`.
+
 ### `matchmaking-auto`
 
 Enable or disable automatic weekly schedule generation (default: enabled). With this

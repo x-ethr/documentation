@@ -62,7 +62,10 @@ schedule is active per guild at a time**: publishing a new one voids the previou
 one and edits its message with a "voided" notice, so regenerating mid-week cleanly
 supersedes the old post.
 
-The published message carries two Organizer-only buttons:
+The published message carries two Organizer-only buttons (or, if
+`/config matchmaking-admin-channel` is set, the public post stays a clean embed and
+the buttons live on a mirror copy in that admin channel — both copies stay in sync
+automatically):
 
 - **📊 Report result** — a wizard: pick the match, pick the winner, then enter both
   scores in a pop-up form. The result goes through the exact same pipeline as
