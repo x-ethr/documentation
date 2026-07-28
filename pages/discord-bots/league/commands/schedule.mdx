@@ -32,13 +32,24 @@ generation can be turned off entirely with `/config matchmaking-auto:False`.
 ## `/schedule draft`
 
 Generate a draft schedule in the current channel instead of announcing it (Organizer
-only). The draft message has two buttons:
+only). Every matchup shows its elo gap (Δ). The draft message is a full editing
+surface:
 
-- **Regenerate** — re-rolls the schedule in place (the matchmaker has intentional
-  variety, so each roll can differ). Repeat until you like it.
+- **Regenerate** — re-rolls the whole schedule in place (the matchmaker has
+  intentional variety, so each roll can differ).
+- **Remove a match…** — dropdown listing every drafted match; pick one to delete it
+  and return its teams to the unscheduled pool.
+- **Add match** — three-step picker (team → opponent → slot) to schedule any two
+  unscheduled teams manually. Elo bounds are intentionally not enforced for manual
+  matches — you chose them.
+- **Swap teams** — pick two matches in the same region and their opponents are
+  exchanged.
 - **Publish** — posts the draft exactly as shown to the configured
   `matchmaking-channel`, then freezes the draft and stamps who published it.
+- **Discard** — deletes the draft.
 
 Nothing is announced until Publish is pressed. Pairs well with
 `matchmaking-auto:False` for leagues that want a human to approve every week's
-schedule.
+schedule. Drafts are working copies held in memory — if the bot restarts, an old
+draft's edit buttons expire (Publish still works), and `/schedule draft` starts a
+fresh one.
