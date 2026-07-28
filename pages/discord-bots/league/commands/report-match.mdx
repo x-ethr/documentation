@@ -24,5 +24,8 @@ losing score. Draws cannot be reported.
 - creates a match record in the database
 - updates the leaderboard
 - posts the result message with the match ID
+- if the two teams have a scheduled fixture on the active published schedule, marks it
+  played and updates the schedule embed (see
+  [`/schedule`](/discord-bots/league/commands/schedule#published-schedules))
 
 If a result needs to be reverted, use `/admin match-void`.
