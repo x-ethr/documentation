@@ -26,4 +26,19 @@ The generator uses:
 
 Schedules are also generated automatically every week at the time configured via
 `/config` (`matchmaking-gen-day`, `matchmaking-gen-hour-utc`,
-`matchmaking-gen-minute-utc`), once a `matchmaking-channel` is set.
+`matchmaking-gen-minute-utc`), once a `matchmaking-channel` is set. Automatic
+generation can be turned off entirely with `/config matchmaking-auto:False`.
+
+## `/schedule draft`
+
+Generate a draft schedule in the current channel instead of announcing it (Organizer
+only). The draft message has two buttons:
+
+- **Regenerate** — re-rolls the schedule in place (the matchmaker has intentional
+  variety, so each roll can differ). Repeat until you like it.
+- **Publish** — posts the draft exactly as shown to the configured
+  `matchmaking-channel`, then freezes the draft and stamps who published it.
+
+Nothing is announced until Publish is pressed. Pairs well with
+`matchmaking-auto:False` for leagues that want a human to approve every week's
+schedule.
