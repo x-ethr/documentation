@@ -84,3 +84,21 @@ automatically):
 Results reported the normal way (`/report-match` or `/elo match`) are also linked
 automatically: if the two teams have a scheduled fixture on the active schedule, it
 is marked played and the embed refreshes on its own.
+
+## Captain DMs & reminders
+
+Publishing a schedule DMs both captains of every fixture with their matchup and a
+local-time Discord timestamp. Captains are also DM'd when their match is affected by
+an edit — added, removed, or cancelled by a schedule deletion.
+
+Each match start time is resolved from the region's slot times (DST-aware), and
+captains automatically receive:
+
+- a **day-of reminder** (12 hours before the slot), and
+- an **hour-before reminder**.
+
+Reminder state is stored on the schedule, so bot restarts never cause duplicate DMs.
+A match added less than 12 hours out only gets the closest applicable reminder. All
+DMs are best-effort — captains with closed DMs are skipped silently, and schedules
+published before this feature existed don't have start times, so reminders begin
+with the next published schedule.
