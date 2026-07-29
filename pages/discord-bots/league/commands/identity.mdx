@@ -1,0 +1,47 @@
+# `/identity`
+
+Link in-game account identifiers to your player so match stats can be tracked.
+Currently supported: **Mordhau** (PlayFab ID).
+
+## `/identity link`
+
+Opens the link flow: pick the game (skipped while only one game is supported), then a
+pop-up form asks for that game's identifier — for Mordhau, your **PlayFab ID** (found
+in-game under *Options → Game → PlayFab ID*).
+
+Identifiers are validated (a PlayFab ID is 15–16 letters/numbers) and must be
+**unique within the server** — if the ID is already linked to another player, the
+link is rejected and you're told whose it is. Re-linking a game you already linked
+overwrites your previous ID.
+
+## `/identity view`
+
+Shows your linked accounts, or another player's with the `user` option.
+
+- `user` `User` *(optional)*
+
+## `/identity unlink`
+
+Remove one of your own linked accounts (game picker appears if you have several).
+
+## `/identity panel` <small>(Organizer)</small>
+
+Posts a persistent **🎮 Link account / 👤 View my links** button panel in the current
+channel — ideal for an onboarding or read-me channel so players never need to know
+the command.
+
+## `/identity admin-unlink` <small>(Organizer)</small>
+
+Force-remove a player's linked account — for disputes, e.g. someone claimed another
+player's ID before they could link it themselves.
+
+- `user` `User`
+- `game` `String` (choice)
+
+The action is recorded in the audit log with the removed identifier, and the affected
+player is DM'd (best-effort). The rightful owner can then `/identity link` normally.
+
+## Data notes
+
+Identities are stored per-player, per-server. Uniqueness is enforced per game within
+a server: one game account can only belong to one player at a time.
