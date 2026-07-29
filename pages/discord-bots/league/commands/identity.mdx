@@ -1,18 +1,22 @@
 # `/identity`
 
 Link in-game account identifiers to your player so match stats can be tracked.
-Currently supported: **Mordhau** (PlayFab ID).
+Currently supported:
+
+- **Mordhau** — PlayFab ID (in-game under *Options → Game → PlayFab ID*)
+- **Steam** — SteamID64 (the 17-digit number from your profile URL, or
+  [steamid.io](https://steamid.io))
 
 ## `/identity link`
 
-Opens the link flow: pick the game (skipped while only one game is supported), then a
-pop-up form asks for that game's identifier — for Mordhau, your **PlayFab ID** (found
-in-game under *Options → Game → PlayFab ID*).
+Opens the link flow: pick the game, then a pop-up form asks for that game's
+identifier with instructions in the field itself.
 
-Identifiers are validated (a PlayFab ID is 15–16 letters/numbers) and must be
-**unique within the server** — if the ID is already linked to another player, the
-link is rejected and you're told whose it is. Re-linking a game you already linked
-overwrites your previous ID.
+Identifiers are format-validated per game (a PlayFab ID is 14–16 hex characters, a
+SteamID64 is 17 digits starting with `7656119`) and must be **unique within the
+server** — if the ID is already linked to another player, the link is rejected and
+you're told whose it is. Re-linking a game you already linked overwrites your
+previous ID.
 
 ## `/identity view`
 
