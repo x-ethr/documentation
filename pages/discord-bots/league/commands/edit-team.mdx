@@ -2,13 +2,16 @@ import {Callout} from "nextra-theme-docs";
 
 # `/edit-team`
 
-Change your team's name or color — including two-color gradients.
+Change your team's name, color — including two-color gradients — or role icon.
 
 ## Options
 
 - `name` `String` optional
 - `color` `String` optional — hex code such as `#FFFFFF`, or `random`
 - `color2` `String` optional — second color for a **gradient**; hex or `random`
+- `icon` `Attachment` optional — role icon image: PNG, JPG, or WebP, under 256KB
+  (64×64 is ideal). Shows next to every member's name in chat and in the member list
+- `remove-icon` `Boolean` optional — remove the current role icon
 
 ## Notes
 
@@ -16,9 +19,10 @@ Change your team's name or color — including two-color gradients.
 - Providing `color2` gives your team role a gradient from `color` (or your current
   color) to `color2`
 - Setting only `color` returns the role to a solid color and removes any gradient
-- Only name changes are on cooldown; color edits are always free
+- Only name changes are on cooldown; color and icon edits are always free
 
 <Callout type={"warning"}>
-    Gradient role colors are a Discord boost perk — the server needs **Enhanced Role
-    Colors** (Server Boost Level 2+). Solid colors work everywhere.
+    Gradient role colors and role icons are Discord boost perks — the server needs
+    **Enhanced Role Colors** / **Role Icons** (Server Boost Level 2+). Solid colors
+    work everywhere.
 </Callout>
