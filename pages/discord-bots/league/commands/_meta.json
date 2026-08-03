@@ -17,6 +17,7 @@
   "achievements": "achievements",
   "identity": "identity",
   "stats": "stats",
+  "server": "server",
   "predict": "predict",
   "elo": "elo",
   "say": "say",

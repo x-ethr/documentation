@@ -1,0 +1,41 @@
+# `/server` <small>(Organizer)</small>
+
+Registry of game servers the stat collector tracks. Once a server is added, the bot
+keeps an RCON connection to it and records Skirmish/Hardpoint sessions
+automatically — kills, deaths, score, rounds, objective holds — into the
+[`/stats`](/discord-bots/league/commands/stats) system, classified as
+competitive / scrim / pug.
+
+## `/server add`
+
+- `game` `String` (choice) — currently Mordhau
+- `label` `String` — short unique handle, e.g. `comp-1` (lowercase, dashes)
+- `host` `String` — server IP or hostname
+- `port` `Integer` — the **RCON** port (TCP), not the game port
+- `password` `String` — the RCON password
+
+The password is stored **encrypted at rest** (AES-256-GCM). Servers are identified
+by `host:port` — adding the same address twice errors with the existing label, and
+labels are unique per game. The collector connects within a minute of adding.
+
+## `/server remove`
+
+- `game` `String`, `label` `String`
+
+Stops tracking. Already-recorded stats are kept.
+
+## `/server list`
+
+Lists tracked servers with their labels and addresses (never passwords).
+
+## Related config
+
+- `/config stats-channel:` — channel receiving live stat events (tracking
+  started, round end, map end, tracking finished) with **🗑 Void / ✅ Approve**
+  buttons on each.
+- `/config stats-approval:` — `manual` (default): tracked stat matches are
+  **pending** and count toward nothing until an organizer approves them;
+  `auto`: they count immediately and organizers void the occasional bad one.
+
+Void/Approve toggle in both directions and every transition is audited. Voiding a
+round or game excludes just that data; voiding a stat match excludes all of it.

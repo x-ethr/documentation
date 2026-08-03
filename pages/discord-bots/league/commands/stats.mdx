@@ -82,5 +82,6 @@ Audited.
 - Suicides count as deaths; **team kills are tracked separately and never count
   toward kills or K/D**.
 - Voided rounds/games/matches are excluded from all aggregates.
-- The automatic collector (live RCON tracking) is the next phase — today, stat
-  matches enter via `/stats import`.
+- Stat matches are recorded automatically by the collector on servers registered
+  via [`/server add`](/discord-bots/league/commands/server) (Skirmish and
+  Hardpoint sessions only), or entered manually via `/stats import`.
