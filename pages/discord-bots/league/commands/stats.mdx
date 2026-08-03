@@ -31,11 +31,16 @@ performer.
 
 ## `/stats leaderboard`
 
-Top 10 tracked players. Requires a minimum of 10 tracked rounds to rank.
+Top 10 tracked players, sorted by the chosen stat (ties broken by total score).
 
-- `stat` `String` *(optional)* — K/D (default), Kills, Score, or Time on point
-- `type` `String` *(optional)* — Competitive (default), Casual, or Overall
+- `stat` `String` *(optional)* — K/D (default), Kills, Score, Time on point, or
+  Clutches
+- `type` `String` *(optional)* — Overall (default), Competitive, or Casual
 - `mode` `String` *(optional)* — filter to SKM or HPT
+
+Ranking normally requires 10+ tracked rounds in the chosen bucket. The board
+always renders: while nobody meets the minimum it shows all players marked
+**provisional**, and with no data at all it says so instead of erroring.
 
 ## `/stats import` <small>(Organizer)</small>
 
