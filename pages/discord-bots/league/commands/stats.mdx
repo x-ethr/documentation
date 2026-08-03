@@ -1,0 +1,86 @@
+# `/stats`
+
+In-game stat tracking for **Mordhau** — kills, deaths, score, and (Hardpoint)
+time-on-point, recorded per round, per game, per match. Tracked modes: **Skirmish
+(SKM)** and **Hardpoint (HPT)** only.
+
+Stats come in three buckets:
+
+- **Competitive** — officially scheduled league matches
+- **Casual** — scrims (team vs team, unscheduled) and pugs (mixed teams)
+- **Overall** — everything combined
+
+Players are identified by their linked **PlayFab ID** — run
+[`/identity link`](/discord-bots/league/commands/identity) or your stats can't be
+credited to you. Stats recorded before you link are backfilled automatically once
+you do.
+
+## `/stats player`
+
+Your (or another player's) tracked stats, shown as Competitive / Casual / Overall.
+
+- `user` `User` *(optional)*
+- `mode` `String` *(optional)* — filter to SKM or HPT
+
+## `/stats match`
+
+One tracked match's breakdown: per-game mode, map, final score, winner, and top
+performer.
+
+- `id` `String` — the stat match id shown on stat embeds and imports
+
+## `/stats leaderboard`
+
+Top 10 tracked players. Requires a minimum of 10 tracked rounds to rank.
+
+- `stat` `String` *(optional)* — K/D (default), Kills, Score, or Time on point
+- `type` `String` *(optional)* — Competitive (default), Casual, or Overall
+- `mode` `String` *(optional)* — filter to SKM or HPT
+
+## `/stats import` <small>(Organizer)</small>
+
+Import a stat match from a JSON file. Imports are **idempotent** — re-importing the
+same `externalId` updates instead of duplicating. Validation errors name the exact
+field (`games[0].players[2].score: expected a number`).
+
+- `file` `Attachment` — a StatMatch payload:
+
+```json
+{
+  "contractVersion": 1,
+  "externalId": "comp-1-2026-08-03-2100",
+  "matchType": "competitive",
+  "server": "comp-1",
+  "startedAt": 1754250000000,
+  "games": [{
+    "mode": "SKM",
+    "map": "Moshpit",
+    "winnerSide": 0,
+    "finalScore": {"side0": 7, "side1": 4},
+    "players": [{"playfabId": "77A5DDC1BC678308", "name": "ore023", "side": 0,
+                  "kills": 12, "deaths": 8, "teamKills": 0, "suicides": 0, "score": 1450}],
+    "rounds": [{"index": 0, "winnerSide": 0,
+                 "players": [{"playfabId": "77A5DDC1BC678308", "kills": 2, "deaths": 0, "score": 220}]}]
+  }]
+}
+```
+
+HPT games use `"segments": [{"side": 0, "seconds": 42, "points": 42}]` instead of
+`rounds`, plus per-player `timeOnPoint`.
+
+## `/stats reclassify` <small>(Organizer)</small>
+
+Move a match between buckets (e.g. a scheduled match that was detected as a scrim).
+Only stat bucketing changes — league match results and elo are never touched.
+Audited.
+
+- `id` `String`
+- `type` `String` — competitive / scrim / pug
+
+## Conventions
+
+- Suicides count as deaths; **team kills are tracked separately and never count
+  toward kills or K/D**.
+- Voided rounds/games/matches are excluded from all aggregates.
+- The automatic collector (live RCON tracking) is the next phase — today, stat
+  matches enter via `/stats import`.
