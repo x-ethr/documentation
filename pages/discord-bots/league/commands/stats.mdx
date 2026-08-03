@@ -77,6 +77,24 @@ Audited.
 - `id` `String`
 - `type` `String` — competitive / scrim / pug
 
+## Clutches (1vX) — Skirmish only
+
+Because Skirmish is one life per round, the collector tracks the full alive pool
+and detects **clutch situations**: the moment a player becomes their team's last
+one standing against **2 or more** living enemies. If their team then wins the
+round, that's a **1vX clutch won** — announced live in the stats channel
+(🔥 **CLUTCH** — *name* won the **1v3**!), shown on `/stats player`
+(`🔥 3 clutches (best 1v3)`), and rankable via
+`/stats leaderboard stat:Clutches`. Failed attempts are recorded too.
+
+- **X is fixed at the moment the clutch begins** — killing two of three enemies
+  and finishing 1v1 still counts as the 1v3 it started as.
+- A mid-round **disconnect counts as an elimination** for the alive pool (but not
+  as a death for the leaver), so clutch detection can't be cheated by rage-quits.
+- 1v1 *games* never produce clutches — X must be ≥ 2.
+- **Hardpoint has no clutches**: respawns are enabled there, so "last alive" is
+  meaningless. Clutch data only exists on SKM rounds.
+
 ## Conventions
 
 - Suicides count as deaths; **team kills are tracked separately and never count
