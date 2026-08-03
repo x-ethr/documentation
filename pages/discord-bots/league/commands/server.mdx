@@ -65,9 +65,21 @@ tracking from in-game chat, and the bot answers in chat:
   posts with Approve/Void).
 - **`.void`** — closes AND voids the session (false start, remake). Recoverable
   via Approve on its finish embed.
+- **`.status`** — re-announces the current tracking state: mode, map,
+  classification (and who `.start`ed it), game number, and live score — or
+  "tracking idle" when nothing is being recorded.
 
 Commands from anyone else are silently ignored. Every ref action is also posted
 to the stats channel with who did it.
+
+Two safety nets around `.start`:
+
+- **Forgotten-`.stop` nag** — every map that finishes while the override is
+  active gets an in-game reminder: *"Still tracking COMPETITIVE — type .stop if
+  the match is over."* The override persists across maps in one continuous
+  session by design (multi-map matches), so the nag is the guard rail.
+- **Arm timeout** — a `.start` issued before any session opens expires after 30
+  minutes if no match materializes, announced in-game and in the stats channel.
 
 Void/Approve toggle in both directions and every transition is audited. Voiding a
 round or game excludes just that data; voiding a stat match excludes all of it.
