@@ -28,6 +28,17 @@ Stops tracking. Already-recorded stats are kept.
 
 Lists tracked servers with their labels and addresses (never passwords).
 
+## `/server status`
+
+Live health check for every tracked server — each line shows one of:
+
+- 🟢 auth OK with round-trip **latency**, current mode/map, player count, and a 🎥
+  marker while a session is being recorded
+- 🔴 not connected (server down or port unreachable — reconnecting with backoff)
+- 🔐 **auth failed** — the stored RCON password is wrong; re-add the server
+- 🟠 connected but the probe timed out
+- ⚪ collector not attached yet (new servers connect within a minute)
+
 ## Related config
 
 - `/config stats-channel:` — channel receiving live stat events (tracking
