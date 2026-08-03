@@ -47,6 +47,27 @@ Live health check for every tracked server — each line shows one of:
 - `/config stats-approval:` — `manual` (default): tracked stat matches are
   **pending** and count toward nothing until an organizer approves them;
   `auto`: they count immediately and organizers void the occasional bad one.
+- `/config ref-role:` — role allowed to use the in-game ref commands below.
+
+## In-game announcements & ref commands
+
+Every time a tracked map (SKM/HPT) starts, the bot announces in server chat:
+`[ETHR] Stat tracking active — Skirmish on Moshpit.`
+
+Players holding the **Ref role** (or Organizer role, or Administrator) — matched
+via their linked PlayFab ID, so refs must have run `/identity link` — can control
+tracking from in-game chat, and the bot answers in chat:
+
+- **`.start`** — forces the current session **competitive** (overrides automatic
+  classification; applies to the next session if none is open). Announces
+  `[ETHR] Competitive tracking STARTED by <name>.`
+- **`.stop`** — finalizes the session immediately (stats flush, finish embed
+  posts with Approve/Void).
+- **`.void`** — closes AND voids the session (false start, remake). Recoverable
+  via Approve on its finish embed.
+
+Commands from anyone else are silently ignored. Every ref action is also posted
+to the stats channel with who did it.
 
 Void/Approve toggle in both directions and every transition is audited. Voiding a
 round or game excludes just that data; voiding a stat match excludes all of it.
