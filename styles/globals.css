@@ -1,0 +1,138 @@
+/* Heir brand layer over nextra-theme-docs. Matches heir.gg: warm near-black
+   surfaces, orange accent, subtle top bloom. */
+
+:root {
+  --heir-primary: #eb6834;
+}
+
+.dark {
+  --heir-primary: #d95926;
+}
+
+.heir-tld {
+  color: var(--heir-primary);
+}
+
+.heir-logo:hover .heir-crown {
+  background: var(--heir-primary) !important;
+  transition: background 200ms ease-out;
+}
+
+/* Surfaces — align the docs chrome with the app's near-black, warm-tinted dark */
+.dark body,
+.dark .nextra-nav-container-blur,
+.dark .nextra-sidebar-container {
+  background-color: #0d0d0c;
+}
+
+.dark body {
+  background-image: radial-gradient(
+    70rem 30rem at 50% -14rem,
+    color-mix(in oklab, var(--heir-primary) 12%, transparent),
+    transparent 70%
+  );
+  background-repeat: no-repeat;
+}
+
+/* Sidebar: active item wears the brand instead of theme blue */
+.dark .nextra-sidebar-container a[class*="active"],
+.dark .nextra-sidebar-container button[class*="active"] {
+  color: var(--heir-primary);
+}
+
+/* Section separators read as labels, not headings */
+.nextra-sidebar-container li[class*="separator"] > span,
+.nextra-menu-desktop li[class*="separator"] > span {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.65rem;
+  opacity: 0.55;
+}
+
+/* Landing hero (index page) */
+.heir-hero {
+  padding: 2.5rem 0 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 6%);
+  margin-bottom: 2.5rem;
+}
+
+.heir-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--heir-primary);
+}
+
+.heir-hero h1 {
+  font-size: 3rem;
+  line-height: 1.02;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin: 0.75rem 0 0;
+}
+
+.heir-hero .heir-accent {
+  background: linear-gradient(120deg, var(--heir-primary), #f5b83d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heir-hero p {
+  margin-top: 1rem;
+  max-width: 36rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  opacity: 0.75;
+}
+
+@media (max-width: 640px) {
+  .heir-hero h1 {
+    font-size: 2.25rem;
+  }
+}
+
+/* Stat strip on the landing page */
+.heir-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(255 255 255 / 7%);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+@media (min-width: 700px) {
+  .heir-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.heir-stat {
+  background: #0d0d0c;
+  padding: 1.1rem 1rem;
+  text-align: center;
+}
+
+html:not(.dark) .heir-stat {
+  background: #ffffff;
+}
+
+.heir-stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.heir-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.6;
+}

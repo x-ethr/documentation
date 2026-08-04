@@ -3,7 +3,7 @@
 Registry of game servers the stat collector tracks. Once a server is added, the bot
 keeps an RCON connection to it and records Skirmish/Hardpoint sessions
 automatically — kills, deaths, score, rounds, objective holds — into the
-[`/stats`](/discord-bots/league/commands/stats) system, classified as
+[`/stats`](/commands/stats) system, classified as
 competitive / scrim / pug.
 
 ## `/server add`
@@ -52,7 +52,7 @@ Live health check for every tracked server — each line shows one of:
   result arbiter: Best of 1 / 3 / 5 / 7 (default **Best of 5**, first to 3).
 - `/config stats-leaderboard-channel:` — channel holding the persistent stat
   leaderboard embeds (see
-  [`/stats leaderboard`](/discord-bots/league/commands/stats#persistent-leaderboards)).
+  [`/stats leaderboard`](/commands/stats#persistent-leaderboards)).
 - `/config stats-leaderboard-buckets:` — which buckets get their own embed there:
   a comma-separated subset of `competitive,casual,overall`, or `all` / `none`
   (default: `competitive,overall`).

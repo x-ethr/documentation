@@ -1,7 +1,7 @@
 {
-  "name": "ethr-docs",
+  "name": "heir-docs",
   "version": "0.0.1",
-  "description": "ETHR Documentation",
+  "description": "Heir Documentation",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,3 +1,47 @@
-![ETHR](/banner-ng.png "ETHR")
+import {Cards, Card} from "nextra/components";
 
-Under Construction.... 🚧
+<div className="heir-hero">
+  <p className="heir-eyebrow">Competition as a Service</p>
+  <h1>Leagues that <span className="heir-accent">run themselves.</span></h1>
+  <p>
+    Heir runs competitive leagues from inside Discord — teams and rosters, elo and
+    standings, weekly scheduling, live in-game stat tracking, and public player
+    profiles. The league layer is game-independent; each title plugs in as a module.
+  </p>
+</div>
+
+## Start here
+
+<Cards>
+  <Card title="Installation" href="/getting-started/installation" />
+  <Card title="Running your league" href="/getting-started/first-league" />
+  <Card title="Platform overview" href="/platform/overview" />
+  <Card title="Command reference" href="/commands/overview" />
+</Cards>
+
+## What you get
+
+<Cards>
+  <Card title="Teams & rosters" href="/commands/roster" />
+  <Card title="Ratings & elo" href="/platform/ratings" />
+  <Card title="Weekly scheduling" href="/commands/schedule" />
+  <Card title="Stat tracking" href="/platform/stat-tracking" />
+  <Card title="Web profiles" href="/platform/profiles" />
+  <Card title="Achievements" href="/platform/achievements" />
+</Cards>
+
+## How a league runs
+
+1. **Install and activate** — invite the bot, get the guild activated, run `/sync-users`.
+2. **Configure once** — `/config` sets regions, roster size, match days, and scheduling windows.
+3. **Teams form** — captains manage their own rosters and availability.
+4. **Schedules publish weekly** — generated from availability and elo bounds, with captain DMs and reminders.
+5. **Matches record themselves** — on tracked servers results and stats are captured automatically; otherwise `/report-match` takes seconds.
+6. **Profiles update** — ratings recompute and [heir.gg](https://heir.gg) profiles publish on their own.
+
+## Conventions in these docs
+
+- Commands are written as `/command subcommand`.
+- Anything marked **(Organizer)** requires the Organizer role or a server admin.
+- Anything marked **(Captain)** is limited to a team's captain.
+- IDs shown in examples are Discord snowflakes.

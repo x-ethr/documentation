@@ -1,0 +1,64 @@
+import {Callout} from "nextra-theme-docs";
+
+# Platform Overview
+
+Heir is competition infrastructure that lives in your Discord server. One bot runs
+the league; a public site publishes the results.
+
+## What it manages
+
+- **Teams** — creation, editing, reforming, disbanding, and name/color history
+- **Rosters** — captains, roster moves, free agents, and player syncing
+- **Ratings** — margin-of-victory elo, regional leaderboards, seasons, and placements
+- **Scheduling** — weekly matchmaking from availability and elo bounds, with captain DMs
+- **Results** — reported manually, or recorded automatically from tracked play
+- **Stat tracking** — live capture from your game servers, per round and per map
+- **Profiles** — public player and team pages on [heir.gg](https://heir.gg)
+- **Configuration** — every rule above is per-guild; nothing is hard-coded to one league
+
+## Game agnostic by design
+
+The league layer — teams, elo, scheduling, profiles, achievements — knows nothing
+about any particular game. A title plugs in as a module that defines two things:
+how a player proves their in-game identity, and where match data comes from.
+Mordhau is live today; see [Stat Tracking](/platform/stat-tracking).
+
+## Roles in a league
+
+| Role | Responsibility |
+| --- | --- |
+| **Organizer** (or server admin) | Configures the guild, runs organizer commands, approves tracked stats |
+| **Captain** | Manages one team's roster and availability |
+| **Player** | Joins teams, links their in-game account, plays |
+| **Ref** *(optional)* | Controls stat tracking from in-game chat |
+
+Access is granted through Discord's own Integrations settings and your server's
+roles — there is no separate permission system to learn. Every organizer action is
+written to an audit log.
+
+## Access model
+
+The bot is gated by guild activation.
+
+- A server can invite the bot before activation.
+- Commands stay blocked until the guild is activated.
+- Activation is currently manual.
+
+<Callout type="warning">
+If your server has invited the bot but commands are blocked, contact <code>@peenie</code> to activate the guild.
+</Callout>
+
+## A typical league
+
+1. Install the bot and activate the guild — see [Installation](/getting-started/installation)
+2. Run `/sync-users` and configure with `/config`
+3. Create or reform teams; captains take over rosters and availability
+4. Schedules generate weekly (or on demand with `/schedule generate`)
+5. Results arrive from `/report-match`, or record themselves from tracked servers
+6. Ratings, standings, and profiles update on their own
+
+## Notes
+
+- Almost all commands are guild-only; a few owner-only DM commands exist for platform operations.
+- Matchmaking is guild-specific — every guild has its own configuration namespace.
+- Seasons are per guild: `/admin season-end` archives placements and soft-resets elo.

@@ -1,4 +1,11 @@
 {
   "index": "Introduction",
-  "discord-bots": "Discord Bots"
+  "getting-started": "Getting Started",
+  "platform": "Platform",
+  "commands": "Command Reference",
+  "profiles-link": {
+    "title": "heir.gg ↗",
+    "href": "https://heir.gg",
+    "newWindow": true
+  }
 }

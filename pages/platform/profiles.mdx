@@ -1,0 +1,49 @@
+import {Callout} from "nextra-theme-docs";
+
+# Web Profiles
+
+Every player and team in an activated league gets a public profile on
+[heir.gg](https://heir.gg) — no login, no setup, nothing for organizers to
+publish.
+
+## What's on them
+
+**Player profiles** show the Heir Rating with its skill breakdown, per-mode
+ratings, career stat totals, recent matches, rating history, achievement badges
+with guild-wide rarity, and full team history.
+
+**Team pages** show elo and record, the current roster with each player's rating,
+elo history, match results, and season placements.
+
+**League pages** show standings per region and a searchable, sortable directory of
+every player.
+
+## Finding your profile
+
+Profile links are handed out by the bot rather than searched for:
+
+- `/player-card` links to your profile
+- `/roster view` links to the team page
+- Match rows on a profile link to the full match breakdown
+
+Links follow the shape `heir.gg/<guild id>/<player or team id>`, so they're
+stable and shareable. Pasting one in Discord unfurls a card with the player's
+avatar, rating, and tier.
+
+## How current is it
+
+Ratings and stat totals are recomputed by the bot the moment approved stats
+change — a tracked match finishing, an organizer approving or voiding one, an
+import, or a reclassification. Pages then cache for up to a minute, so a profile
+is never more than about sixty seconds behind Discord.
+
+<Callout type="info">
+Players who haven't run [`/identity link`](/commands/identity) still get a
+profile — it just won't have in-game stats on it until they link.
+</Callout>
+
+## Privacy
+
+Profiles are public but unlisted: the site has no player directory on its home
+page, no name search, and asks search engines not to index it. A profile is
+reachable only if someone has the link.

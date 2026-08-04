@@ -1,0 +1,91 @@
+import {Callout, Steps} from "nextra-theme-docs";
+
+# Stat Tracking
+
+Heir connects directly to your game servers and records matches as they happen —
+per round, per map, per match — then classifies, rates, and publishes them without
+anyone filing a report.
+
+Currently live for **Mordhau** (Skirmish and Hardpoint). The tracking layer is a
+per-game module: a title needs an identity players can link and a source of match
+data.
+
+## What gets recorded
+
+- **Per player:** kills, deaths, team kills, suicides, score, and objective time
+- **Per round (Skirmish):** who won, who participated, and 1vX clutch situations
+- **Per map:** mode, map, final score, winner, and which team held each side
+- **Per match:** every game in the session, linked to the league match when scheduled
+
+Team kills are tracked separately and never count toward kills or K/D. Suicides
+count as deaths.
+
+## Setting it up
+
+<Steps>
+### Register a server
+
+`/server add` stores the address and RCON credentials (encrypted at rest) and the
+collector connects within a minute. `/server status` is a live health check.
+
+### Have players link their accounts
+
+`/identity link` connects a Discord account to an in-game ID. Stats recorded before
+someone links are backfilled automatically once they do.
+
+### Pick an approval mode
+
+`/config stats-approval` decides whether tracked matches count immediately (`auto`)
+or wait for an organizer's approval (`manual`, the default).
+
+### Point events at a channel
+
+`/config stats-channel` receives live embeds — tracking started, round end, map end,
+match finished — each with **Void** and **Approve** buttons.
+</Steps>
+
+## Competitive, casual, overall
+
+Every tracked match is classified automatically:
+
+- **Competitive** — the two sides match a scheduled fixture on the active schedule
+- **Scrim** — two rostered teams playing each other, unscheduled
+- **Pug** — everything else
+
+Those roll up into three stat buckets — **Competitive**, **Casual** (scrims and
+pugs), and **Overall** — which are filters applied at query time, so
+reclassifying a match with `/stats reclassify` moves it instantly without
+touching the recorded data.
+
+## Automatic results
+
+When a scheduled pair is detected playing, the session is classified competitive
+and an arbiter watches the series. At the configured series length
+(`/config series-format`, default best of 5) the league result is recorded through
+the same pipeline as `/report-match`: elo applied, schedule updated, and the stat
+match linked to the league match.
+
+<Callout type="info">
+In `manual` approval mode the result waits until an organizer approves the stat
+match, so a bad tracking session can never move elo on its own.
+</Callout>
+
+## In-game controls
+
+Referees — anyone holding the configured ref role, plus organizers and admins —
+can control tracking from in-game chat:
+
+- `.start` — force the current session to competitive
+- `.stop` — finalize the session immediately
+- `.void` — close and void the session (false start, remake)
+- `.status` — re-announce the current tracking state
+
+Ref identity is matched through their linked in-game ID, so refs must have run
+`/identity link`. Every ref action is echoed to the stats channel with who did it.
+
+## Related
+
+- [`/server`](/commands/server) — server registry and health
+- [`/stats`](/commands/stats) — player stats, leaderboards, imports
+- [`/identity`](/commands/identity) — linking in-game accounts
+- [Ratings & Elo](/platform/ratings) — how tracked stats become a rating
