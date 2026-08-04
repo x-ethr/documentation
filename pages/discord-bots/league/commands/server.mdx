@@ -48,6 +48,12 @@ Live health check for every tracked server — each line shows one of:
   **pending** and count toward nothing until an organizer approves them;
   `auto`: they count immediately and organizers void the occasional bad one.
 - `/config ref-role:` — role allowed to use the in-game ref commands below.
+- `/config stats-leaderboard-channel:` — channel holding the persistent stat
+  leaderboard embeds (see
+  [`/stats leaderboard`](/discord-bots/league/commands/stats#persistent-leaderboards)).
+- `/config stats-leaderboard-buckets:` — which buckets get their own embed there:
+  a comma-separated subset of `competitive,casual,overall`, or `all` / `none`
+  (default: `competitive,overall`).
 
 ## In-game announcements & ref commands
 

@@ -33,14 +33,34 @@ performer.
 
 Top 10 tracked players, sorted by the chosen stat (ties broken by total score).
 
-- `stat` `String` *(optional)* — K/D (default), Kills, Score, Time on point, or
-  Clutches
+- `stat` `String` *(optional)* — K/D (default), Kills, Score, Time on point,
+  Clutches, or Rounds played
 - `type` `String` *(optional)* — Overall (default), Competitive, or Casual
 - `mode` `String` *(optional)* — filter to SKM or HPT
 
 Ranking normally requires 10+ tracked rounds in the chosen bucket. The board
 always renders: while nobody meets the minimum it shows all players marked
 **provisional**, and with no data at all it says so instead of erroring.
+
+## Persistent leaderboards
+
+Besides the on-demand command, a channel can host **always-current leaderboard
+embeds** — one message per bucket, edited in place (never reposted, so message
+links stay stable):
+
+- Top row: **Kills**, **Score**, **K/D** — top 5 each
+- Second row: **Clutches**, **Time on Point**, **Rounds Played** — top 3 each
+- Distinct colors per bucket (🏆 Competitive red, 🎮 Casual blue, 🌐 Overall gold)
+
+Set it up with `/config stats-leaderboard-channel:` and pick buckets with
+`/config stats-leaderboard-buckets:` (default: competitive + overall). The embeds
+refresh automatically whenever approved stats change: a tracked match finishes,
+an organizer approves/voids/restores anything, or a match is imported or
+reclassified. The same 10-round ranking floor applies per bucket, with the same
+provisional fallback.
+
+The channel may be the team **elo leaderboard** channel — the stat messages are
+tracked and survive its repost cycle — or any other channel you prefer.
 
 ## `/stats import` <small>(Organizer)</small>
 
