@@ -136,3 +136,16 @@ html:not(.dark) .heir-stat {
   letter-spacing: 0.16em;
   opacity: 0.6;
 }
+
+/* Full-bleed layout: Nextra centers the whole shell in a 90rem container, which
+   leaves the sidebar floating away from the left edge on wide displays. Drop
+   the cap so the sidebar and nav hug the viewport, and center the article in
+   whatever space is left so line length stays readable. */
+.nextra-nav-container nav.nx-max-w-\[90rem\],
+.nx-mx-auto.nx-max-w-\[90rem\] {
+  max-width: none;
+}
+
+main.nx-max-w-6xl {
+  margin-inline: auto;
+}
