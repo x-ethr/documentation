@@ -59,10 +59,25 @@ touching the recorded data.
 
 ## Automatic results
 
-When a scheduled pair is detected playing, the session is classified competitive
-and an arbiter watches the series. At the configured series length
-(`/config series-format`, default best of 5) the league result is recorded through
-the same pipeline as `/report-match`: elo applied, schedule updated, and the stat
+A session becomes a **league match** one of three ways:
+
+1. **A ref binds it** with `.start <code>` — every unplayed match on the
+   published schedule shows a short code (like `K7QX`) for exactly this.
+2. **Both scheduled teams are detected playing** near their match time. A
+   fixture only arms detection from **45 minutes before** its scheduled start
+   until **3 hours after** — the same two teams pugging together earlier in
+   the evening stay a scrim.
+3. **A ref forces it** with `.start force`, for a league match that isn't on
+   the schedule.
+
+The moment a session arms as a league match, the server announces it in game
+with both team names — `LEAGUE MATCH armed: X vs Y — the result records
+automatically when the series is decided. Not a league match? .void` — so a
+false positive can be killed before it decides anything.
+
+An arbiter then watches the series. At the configured length
+(`/config series-format`, default best of 5) the result is recorded through the
+same pipeline as `/report-match`: elo applied, schedule updated, and the stat
 match linked to the league match.
 
 <Callout type="info">
@@ -75,10 +90,20 @@ match, so a bad tracking session can never move elo on its own.
 Referees — anyone holding the configured ref role, plus organizers and admins —
 can control tracking from in-game chat:
 
-- `.start` — force the current session to competitive
+- `.start <code>` — bind the session to a scheduled match by the code shown on
+  the published schedule. Knowing the two teams up front means **one** linked
+  player is enough to detect which side is which.
+- `.start` — binds automatically when exactly one scheduled match is within a
+  couple of hours; with several it lists their codes. With nothing scheduled it
+  does **not** start anything — recording an unscheduled league match takes a
+  deliberate `.start force`.
+- `.red` / `.blue` — answer the "What color team is X?" prompt when a map has
+  no linked players to detect sides from. Sides re-detect **every map** (teams
+  swap), so this can be re-issued any time to correct the current map.
 - `.stop` — finalize the session immediately
-- `.void` — close and void the session (false start, remake)
-- `.status` — re-announce the current tracking state
+- `.void` — close and void the session (false start, remake, false positive)
+- `.status` — re-announce the tracking state, including the bound match and the
+  current map's Red/Blue mapping
 
 Ref identity is matched through their linked in-game ID, so refs must have run
 `/identity link`. Every ref action is echoed to the stats channel with who did it.
