@@ -1,0 +1,54 @@
+import {Callout} from "nextra-theme-docs";
+
+# League Management
+
+Live leagues are managed from the web at **your league page → ⋮ → Manage
+league**, or directly at `heir.gg/<server-id>/manage`.
+
+## Who can do what
+
+Heir resolves permissions **live from Discord** every time — nothing is stored,
+so role changes take effect within minutes.
+
+| Rung | Can |
+|---|---|
+| Anyone | View standings, players, matches, tier lists |
+| Signed in | Everything above, plus their own dashboard, settings, and linked accounts |
+| Player | Appears in leagues; joins teams |
+| **Organizer** (role) | Manage league settings from the web; all organizer bot commands |
+| **Server owner** | Everything an Organizer can, plus setup, cancel, and **deleting the league** |
+
+## League settings
+
+The management page covers what `/config` covers, from the browser: regions,
+match nights, series format, roster size, the channels Heir posts to, the ref
+role, and stat approval. Changes are applied **by the bot itself** — the page
+waits for Heir's confirmation before reporting a save, and every change is
+recorded in the league's audit log.
+
+<Callout type="info">
+The <strong>game</strong> is fixed at setup and cannot be changed — switching
+games would orphan every linked account, stat, and rating.
+</Callout>
+
+## Deleting a league
+
+Owner only, from the league page's **⋮ menu**. Deletion asks you to type the
+league's exact name, then permanently removes:
+
+- every team, match, stat, rating, and schedule
+- the league's audit history and registered game servers
+- the channels and roles Heir created
+- Heir itself — the bot leaves your server
+
+<Callout type="warning">
+There is no undo. Heir re-verifies both your ownership and the typed name
+before deleting anything.
+</Callout>
+
+## Transferring your server
+
+If you transfer Discord server ownership, Heir follows automatically: the new
+owner gains owner-level access (management, deletion) within a few minutes,
+and the previous owner keeps only whatever roles they still hold. There is
+nothing to reconfigure.
