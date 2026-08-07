@@ -1,0 +1,12 @@
+{
+ "pages": [
+  "overview",
+  "league-management",
+  "accounts",
+  "stat-tracking",
+  "ratings",
+  "achievements",
+  "profiles"
+ ],
+ "title": "Platform"
+}

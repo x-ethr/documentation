@@ -1,0 +1,101 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/shadcn.css";
+@import "fumadocs-ui/css/preset.css";
+
+/* ---------------------------------------------------------------------------
+   Heir brand tokens — EXACT copies of heir.gg's dark palette (ethr-web
+   app/globals.css). The shadcn.css preset maps these onto Fumadocs' colors,
+   so the docs render as an extension of the main site. Dark-only, forced.
+--------------------------------------------------------------------------- */
+:root,
+.dark {
+  --background: oklch(0.135 0.004 70);
+  --foreground: oklch(0.97 0.002 80);
+  --card: oklch(0.168 0.005 70);
+  --card-foreground: oklch(0.97 0.002 80);
+  --popover: oklch(0.168 0.005 70);
+  --popover-foreground: oklch(0.97 0.002 80);
+  --primary: #d95926;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.222 0.005 70);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.215 0.005 70);
+  --muted-foreground: oklch(0.68 0.008 75);
+  --accent: oklch(0.222 0.005 70);
+  --accent-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: #d95926;
+  --radius: 0.625rem;
+  /* Sidebar blends into the page surface, like the app's chrome */
+  --sidebar: transparent;
+  --sidebar-foreground: var(--foreground);
+  --sidebar-accent: oklch(0.222 0.005 70);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+:root {
+  --font-sans: var(--font-sans, ui-sans-serif);
+  --font-mono: var(--font-geist-mono, ui-monospace);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  /* The app's warm top bloom — restrained, fading to the flat surface */
+  background-image:
+    radial-gradient(70rem 32rem at 50% -14rem, color-mix(in oklab, var(--primary) 13%, transparent), transparent 70%),
+    radial-gradient(48rem 24rem at 100% -8rem, color-mix(in oklab, var(--primary) 5%, transparent), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+/* Film grain over the bloom — same asset and settings as heir.gg */
+.heir-grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------------
+   Nextra-style numbered steps: content keeps plain `### Heading` sections and
+   the wrapper numbers them — mirrors the app's warm accents.
+--------------------------------------------------------------------------- */
+.heir-steps {
+  counter-reset: heir-step;
+  border-left: 1px solid var(--border);
+  margin-left: 1rem;
+  padding-left: 1.5rem;
+}
+
+.heir-steps h3 {
+  counter-increment: heir-step;
+  position: relative;
+  margin-top: 2rem;
+}
+
+.heir-steps h3::before {
+  content: counter(heir-step);
+  position: absolute;
+  left: -2.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--primary) 14%, var(--background));
+  border: 1px solid color-mix(in oklab, var(--primary) 35%, transparent);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}

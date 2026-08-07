@@ -1,0 +1,30 @@
+---
+title: "`/create-team`"
+---
+
+Create a new team role and database record.
+
+## Options
+
+- `team_name` `String`
+- `captain` `User`
+- `region` `String`
+- `color` `String` optional
+
+## Behavior
+
+- Creates a new team role
+- Assigns the selected captain
+- Removes the captain's `Free Agent` role
+- Creates the team in the database
+- Updates the leaderboard
+
+## Notes
+
+- Team names cannot use reserved role names such as `Organizer`, `Captain`, or `Free Agent`
+- Team name max length is 35 characters; letters, numbers, and single spaces only
+- `color` must be a hex value such as `#FFFFFF`
+
+<Callout type="warning">
+Discord has a hard role limit per server. Archived disbanded team roles still count toward that limit until deleted manually.
+</Callout>

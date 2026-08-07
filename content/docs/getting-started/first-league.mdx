@@ -1,0 +1,64 @@
+---
+title: "Basic Usage"
+---
+
+## Organizer Setup Flow
+
+If you are setting up a new guild:
+
+1. Invite the bot
+2. Get the guild activated
+3. Run `/sync-users`
+4. Run `/config` to set regions, roster size, and matchmaking
+5. Create or reform teams
+
+## Player Flow
+
+To join a team:
+
+- You must have the `Free Agent` role
+- A captain uses `/roster add` to add you
+
+To leave a team:
+
+- Use `/leave-team`
+
+If the departing player is the captain, captaincy is reassigned automatically when possible. If the captain was the last remaining player, the team is disbanded.
+
+## Captain Flow
+
+Captains are responsible for:
+
+- `/roster add`
+- `/roster kick`
+- `/roster set-captain`
+- `/edit-team`
+- `/disband-team`
+- `/team-availability set-time`
+- `/team-availability set-locations`
+
+## Weekly Matchmaking Flow
+
+The weekly schedule system uses:
+
+- team availability
+- region
+- ELO bounds
+- per-team weekly match cap
+- recent match history penalties to reduce back-to-back repeats
+
+Typical workflow:
+
+1. Captains set availability
+2. Organizer configures matchmaking with `/config`
+3. Organizer runs `/schedule generate` or waits for automatic generation
+4. Schedule is posted to the configured announcement channel
+
+## Reporting Results
+
+There are two ways to record results:
+
+- `/report-match`: winner's captain reports the match
+- `/elo match`: organizer-style manual result entry
+
+If a result must be undone, use `/admin match-void`.

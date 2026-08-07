@@ -1,0 +1,95 @@
+---
+title: "`/server` <small>(Organizer)</small>"
+---
+
+Registry of game servers the stat collector tracks. Once a server is added, the bot
+keeps an RCON connection to it and records Skirmish/Hardpoint sessions
+automatically — kills, deaths, score, rounds, objective holds — into the
+[`/stats`](/commands/stats) system, classified as
+competitive / scrim / pug.
+
+## `/server add`
+
+- `game` `String` (choice) — currently Mordhau
+- `label` `String` — short unique handle, e.g. `comp-1` (lowercase, dashes)
+- `host` `String` — server IP or hostname
+- `port` `Integer` — the **RCON** port (TCP), not the game port
+- `password` `String` — the RCON password
+
+The password is stored **encrypted at rest** (AES-256-GCM). Servers are identified
+by `host:port` — adding the same address twice errors with the existing label, and
+labels are unique per game. The collector connects within a minute of adding.
+
+## `/server remove`
+
+- `game` `String`, `label` `String`
+
+Stops tracking. Already-recorded stats are kept.
+
+## `/server list`
+
+Lists tracked servers with their labels and addresses (never passwords).
+
+## `/server status`
+
+Live health check for every tracked server — each line shows one of:
+
+- 🟢 auth OK with round-trip **latency**, current mode/map, player count, and a 🎥
+  marker while a session is being recorded
+- 🔴 not connected (server down or port unreachable — reconnecting with backoff)
+- 🔐 **auth failed** — the stored RCON password is wrong; re-add the server
+- 🟠 connected but the probe timed out
+- ⚪ collector not attached yet (new servers connect within a minute)
+
+## Related config
+
+- `/config stats-channel:` — channel receiving live stat events (tracking
+  started, round end, map end, tracking finished) with **🗑 Void / ✅ Approve**
+  buttons on each.
+- `/config stats-approval:` — `manual` (default): tracked stat matches are
+  **pending** and count toward nothing until an organizer approves them;
+  `auto`: they count immediately and organizers void the occasional bad one.
+- `/config ref-role:` — role allowed to use the in-game ref commands below.
+- `/config series-format:` — league series length used by the automatic
+  result arbiter: Best of 1 / 3 / 5 / 7 (default **Best of 5**, first to 3).
+- `/config stats-leaderboard-channel:` — channel holding the persistent stat
+  leaderboard embeds (see
+  [`/stats leaderboard`](/commands/stats#persistent-leaderboards)).
+- `/config stats-leaderboard-buckets:` — which buckets get their own embed there:
+  a comma-separated subset of `competitive,casual,overall`, or `all` / `none`
+  (default: `competitive,overall`).
+
+## In-game announcements & ref commands
+
+Every time a tracked map (SKM/HPT) starts, the bot announces in server chat:
+`[ETHR] Stat tracking active — Skirmish on Moshpit.`
+
+Players holding the **Ref role** (or Organizer role, or Administrator) — matched
+via their linked PlayFab ID, so refs must have run `/identity link` — can control
+tracking from in-game chat, and the bot answers in chat:
+
+- **`.start`** — forces the current session **competitive** (overrides automatic
+  classification; applies to the next session if none is open). Announces
+  `[ETHR] Competitive tracking STARTED by <name>.`
+- **`.stop`** — finalizes the session immediately (stats flush, finish embed
+  posts with Approve/Void).
+- **`.void`** — closes AND voids the session (false start, remake). Recoverable
+  via Approve on its finish embed.
+- **`.status`** — re-announces the current tracking state: mode, map,
+  classification (and who `.start`ed it), game number, and live score — or
+  "tracking idle" when nothing is being recorded.
+
+Commands from anyone else are silently ignored. Every ref action is also posted
+to the stats channel with who did it.
+
+Two safety nets around `.start`:
+
+- **Forgotten-`.stop` nag** — every map that finishes while the override is
+  active gets an in-game reminder: *"Still tracking COMPETITIVE — type .stop if
+  the match is over."* The override persists across maps in one continuous
+  session by design (multi-map matches), so the nag is the guard rail.
+- **Arm timeout** — a `.start` issued before any session opens expires after 30
+  minutes if no match materializes, announced in-game and in the stats channel.
+
+Void/Approve toggle in both directions and every transition is audited. Voiding a
+round or game excludes just that data; voiding a stat match excludes all of it.

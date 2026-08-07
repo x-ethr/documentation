@@ -1,0 +1,32 @@
+---
+title: "`/export-availabilities`"
+---
+
+Export current team availabilities as JSON.
+
+This is useful for auditing availability data or feeding it into external tooling.
+
+## Example Schema
+
+```json5
+[
+    {
+        snowflake: string,
+        name: string,
+        region: string,
+        elo: number,
+        availability: {
+            tuesday: [number, number, number];
+            wednesday: [number, number, number];
+            thursday: [number, number, number];
+            friday: [number, number, number];
+            saturday: [number, number, number];
+        },
+        locationPreference: {
+            first: string,
+            second: string,
+            third: string
+        }
+    }
+]
+```

@@ -1,0 +1,33 @@
+---
+title: "`/report-match`"
+---
+
+Winner-captain match reporting.
+
+## Who Can Use It
+
+Only the captain of the winning team can report the result.
+
+## Options
+
+- `winner` `Role`
+- `loser` `Role`
+- `winning_score` `Number`
+- `losing_score` `Number`
+
+Scores must be non-negative whole numbers and the winning score must be greater than the
+losing score. Draws cannot be reported.
+
+## Behavior
+
+- validates that the caller is the winning team's captain
+- applies the report-match cooldown (1 hour per winning team)
+- updates both teams' ELO and records (see [Mathematics](/platform/ratings))
+- creates a match record in the database
+- updates the leaderboard
+- posts the result message with the match ID
+- if the two teams have a scheduled fixture on the active published schedule, marks it
+  played and updates the schedule embed (see
+  [`/schedule`](/commands/schedule#published-schedules))
+
+If a result needs to be reverted, use `/admin match-void`.

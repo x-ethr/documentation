@@ -1,0 +1,58 @@
+---
+title: "`/team-availability`"
+---
+
+Captain-facing availability and server preference commands.
+
+## `/team-availability set-time`
+
+Set team availability for scheduling.
+
+- `day` `String`
+- `slot` `String`
+- `available` `Boolean`
+
+Supported days:
+
+- `all`
+- `Monday`
+- `Tuesday`
+- `Wednesday`
+- `Thursday`
+- `Friday`
+- `Saturday`
+- `Sunday`
+
+Supported slots:
+
+- `all`
+- `1`
+- `2`
+- `3`
+
+Matches are only scheduled on the days the server has enabled (`matchmaking-days` in
+`/config`). Teams created before a day became a match day are treated as unavailable on
+that day until their captain sets it.
+
+## `/team-availability set-locations`
+
+Set preferred server locations for your team.
+
+- `first` `String` optional
+- `second` `String` optional
+- `third` `String` optional
+
+All three location choices must be unique.
+
+## `/team-availability vacation`
+
+Toggle vacation mode for your team (captain only). While on vacation:
+
+- Weekly matchmaking skips your team — it won't be scheduled, and it appears under
+  the schedule's Unscheduled Teams with a 🏝️ marker so everyone knows why.
+- The leaderboard and your availability view show a 🏝️ marker.
+- Your availability settings are kept and everything resumes when you toggle it off.
+
+## `/team-availability view`
+
+View your team's current availability.
