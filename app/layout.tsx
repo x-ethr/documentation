@@ -50,6 +50,9 @@ export default function Layout({children}: {children: ReactNode}) {
 					<DocsLayout
 						tree={source.pageTree}
 						nav={{title: <Wordmark />}}
+						// Full-bleed: the default caps the grid at 1400px with side
+						// gutters; 100vw lets sidebar + content + toc span the window
+						containerProps={{className: "[--fd-layout-width:100vw]"}}
 						themeSwitch={{enabled: false}}
 						links={[
 							{text: "heir.gg", url: "https://heir.gg", external: true},
