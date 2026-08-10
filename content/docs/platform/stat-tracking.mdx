@@ -46,11 +46,21 @@ match finished — each with **Void** and **Approve** buttons.
 
 ## Competitive, casual, overall
 
-Every tracked match is classified automatically:
+Every tracked match is classified automatically — and a **match is a run, not
+a server session**. When a game finishes, Heir works out which rostered teams
+(if any) held each side from the game's complete final roster. Consecutive
+games with the same pairing belong to the same match; the moment the pairing
+changes — a scrim starts after warmup pugs, or different teams take over —
+the current match closes and a new one begins. Warmup and the real thing
+never share a page.
 
-- **Competitive** — the two sides match a scheduled fixture on the active schedule
-- **Scrim** — two rostered teams playing each other, unscheduled
+- **Competitive** — the run's pairing matches a scheduled fixture on the active schedule
+- **Scrim** — a run of two rostered teams playing each other, unscheduled
 - **Pug** — everything else
+
+Because the pairing comes from each game's full roster rather than a
+moment-in-time player list, subs joining, relogs between maps, and players
+drifting out at the end of the night can't flip a match's label.
 
 Those roll up into three stat buckets — **Competitive**, **Casual** (scrims and
 pugs), and **Overall** — which are filters applied at query time, so
@@ -63,10 +73,11 @@ A session becomes a **league match** one of three ways:
 
 1. **A ref binds it** with `.start <code>` — every unplayed match on the
    published schedule shows a short code (like `K7QX`) for exactly this.
-2. **Both scheduled teams are detected playing** near their match time. A
-   fixture only arms detection from **45 minutes before** its scheduled start
-   until **3 hours after** — the same two teams pugging together earlier in
-   the evening stay a scrim.
+2. **Both scheduled teams are detected playing** near their match time,
+   decided once when their run's first game finishes. A fixture only arms
+   detection from **45 minutes before** its scheduled start until **3 hours
+   after** — the same two teams pugging together earlier in the evening stay
+   a scrim.
 3. **A ref forces it** with `.start force`, for a league match that isn't on
    the schedule.
 
