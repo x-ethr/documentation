@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 	openGraph: {siteName: "Heir Docs", type: "website"}
 };
 
-export const viewport: Viewport = {themeColor: "#d95926"};
+export const viewport: Viewport = {themeColor: "#f5b83d"};
 
 /** The webapp's crown wordmark, linking back to the main site. */
 function Wordmark() {
