@@ -20,6 +20,38 @@ data.
 Team kills are tracked separately and never count toward kills or K/D. Suicides
 count as deaths.
 
+## Minimum match format
+
+Not every game on a server is worth recording — two players dueling after a pug, a
+solo warmup, or a half-empty lobby shouldn't land in the stats. Each league sets a
+**minimum match format**, per side:
+
+| Setting | Meaning |
+| --- | --- |
+| `1v1` | record everything, down to a duel |
+| `2v2` | record 2v2 and larger |
+| `3v3` | **default** — record 3v3 and larger |
+| … up to `8v8` | |
+
+A game only opens for recording once **both sides can field that many** — i.e.
+`format × 2` players are seated on teams. Anything smaller is ignored: no stat
+match, no in-game "tracking active" announcement, nothing. This is set on the web
+(**League settings → Stat tracking → Minimum match format**) or with
+[`/config min-team-size`](/commands/config).
+
+The minimum applies to **every** match, including a ref's `.start` — an organizer
+can't force-track a game below the league's format. The default of `3v3` is also the
+smallest a match can be to classify as anything but a pug (team classification needs
+three linked players per side), so leagues that never touch the setting keep exactly
+the behavior they always had.
+
+<Callout type="info">
+**Shared servers respect each league's own minimum.** Two leagues can track the same
+box — each runs its own collector against one shared connection. If one league is
+`3v3` and another is `2v2`, a 2v2 played there is recorded **only** by the `2v2`
+league; the `3v3` league ignores it. Neither league sees the other's data.
+</Callout>
+
 ## Setting it up
 
 <Steps>
@@ -32,6 +64,11 @@ collector connects within a minute. `/server status` is a live health check.
 
 `/identity link` connects a Discord account to an in-game ID. Stats recorded before
 someone links are backfilled automatically once they do.
+
+### Set your minimum format
+
+**League settings → Stat tracking** (or [`/config min-team-size`](/commands/config))
+decides the smallest game the collector records. Default is `3v3`.
 
 ### Pick an approval mode
 
@@ -81,6 +118,9 @@ A session becomes a **league match** one of three ways:
 3. **A ref forces it** with `.start force`, for a league match that isn't on
    the schedule.
 
+All three still respect the league's [minimum match format](#minimum-match-format) —
+a game below it never opens, so there's nothing to arm.
+
 The moment a session arms as a league match, the server announces it in game
 with both team names — `LEAGUE MATCH armed: X vs Y — the result records
 automatically when the series is decided. Not a league match? .void` — so a
@@ -116,6 +156,11 @@ can control tracking from in-game chat:
 - `.status` — re-announce the tracking state, including the bound match and the
   current map's Red/Blue mapping
 
+<Callout type="warning">
+The ref role must be a **specific** role, never `@everyone` — Heir rejects setting
+`@everyone` as the ref role, since it would make every linked player a ref.
+</Callout>
+
 Ref identity is matched through their linked in-game ID, so refs must have run
 `/identity link`. Every ref action is echoed to the stats channel with who did it.
 
@@ -123,5 +168,6 @@ Ref identity is matched through their linked in-game ID, so refs must have run
 
 - [`/server`](/commands/server) — server registry and health
 - [`/stats`](/commands/stats) — player stats, leaderboards, imports
+- [`/config`](/commands/config) — minimum format, approval, ref role, series length
 - [`/identity`](/commands/identity) — linking in-game accounts
 - [Ratings & Elo](/platform/ratings) — how tracked stats become a rating

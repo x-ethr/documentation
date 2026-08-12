@@ -1,0 +1,81 @@
+---
+title: "Overview"
+---
+
+Tournaments run single- or double-elimination brackets — optionally behind a
+round-robin group stage — on top of your league. They're **created and managed
+from the web** at [heir.gg](https://heir.gg); the bot handles the Discord side
+(announcements, roster DMs, bet settling, and podium posts) and, for ranked
+cups, the elo and match records. There are no `/tournament` slash commands —
+everything lives on the tournament's page.
+
+<Cards>
+  <Card title="Running a tournament" href="/tournaments/running" />
+  <Card title="Stat tracking" href="/platform/stat-tracking" />
+</Cards>
+
+## Formats
+
+A tournament is one **bracket**, optionally fed by a **group stage**:
+
+- **Single elimination** — one loss and you're out. Optional third-place match.
+- **Double elimination** — a winners and losers bracket; you're out on your
+  second loss. The grand final can include a bracket **reset** (the losers-bracket
+  finalist must beat the winners-bracket finalist twice), on by default.
+- **Groups → elimination** — teams are split into round-robin groups; the top
+  *N* from each group advance into the elimination bracket. Groups can be single
+  or double round-robin, and standings are ranked by wins, then rounds.
+
+Bracket sizes are **4, 8, 16, or 32** teams as standard. The field never changes
+after the tournament starts — every match a format can ever need (including the
+conditional grand-final reset) is created up front, and reporting a result only
+fills in the next slots.
+
+## Ranked vs. unranked
+
+Each tournament is **ranked** or **unranked**, locked when it starts:
+
+- **Ranked** cups feed your league: reported results move team **elo** and write
+  real league match records, exactly like a scheduled match. Only league teams
+  can enter a ranked cup.
+- **Unranked** cups are self-contained — results advance the bracket and crown a
+  champion, but never touch elo. Unranked cups may include **custom teams**
+  (ad-hoc rosters of existing league players), which is what makes self-serve
+  sign-ups possible.
+
+A tournament that contains any custom team must be unranked.
+
+## What Discord gets
+
+When Discord integration is on, the bot mirrors the tournament's lifecycle into
+your server via the event outbox:
+
+- **Start** — an announcement post with the format and field.
+- **Scheduled matches** — captain DMs with the matchup and a local-time reminder,
+  the same day-of and hour-before reminders as weekly fixtures.
+- **Results** — open bets settle as matches are reported.
+- **Finalize** — the podium is posted, placements are archived onto team
+  profiles, and placement achievements are awarded.
+- **Cancel** — any open bets on the tournament are refunded.
+
+Match codes are unique across the whole league: a bracket match's `.start` code
+is reserved against every active weekly schedule, so a tournament match and a
+league fixture can never collide.
+
+## Predictions
+
+If predictions are enabled, members can wager crowns on the next **scheduled,
+upcoming** tournament match — the same prediction flow as league fixtures. Give a
+match a start time (see [Running a tournament](/tournaments/running)) to open
+predictions on it.
+
+## Plans
+
+Tournaments are available on every plan, with limits by tier:
+
+- **Free** — single-elimination brackets up to **16 teams**, **one** active
+  tournament at a time.
+- **Pro** — **double elimination**, **group stages**, **custom bracket sizes**
+  (2–64), larger fields, and multiple concurrent tournaments.
+
+Third-place matches and self-serve registration are available on every plan.

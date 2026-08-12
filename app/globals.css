@@ -15,8 +15,8 @@
   --card-foreground: oklch(0.97 0.002 80);
   --popover: oklch(0.168 0.005 70);
   --popover-foreground: oklch(0.97 0.002 80);
-  --primary: #d95926;
-  --primary-foreground: #ffffff;
+  --primary: #f5b83d;
+  --primary-foreground: #000000;
   --secondary: oklch(0.222 0.005 70);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.215 0.005 70);
@@ -25,7 +25,7 @@
   --accent-foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 12%);
-  --ring: #d95926;
+  --ring: #f5b83d;
   --radius: 0.625rem;
   /* Sidebar blends into the page surface, like the app's chrome */
   --sidebar: transparent;

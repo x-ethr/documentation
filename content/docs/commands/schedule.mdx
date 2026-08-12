@@ -2,114 +2,133 @@
 title: "`/schedule`"
 ---
 
-Schedule and matchmaking commands.
+Weekly matchmaking — generate, edit, and publish the schedule.
 
-## `/schedule view`
+<Callout type="info">
+The <strong>Schedule editor on the web</strong> (`heir.gg/&lt;slug&gt;/schedule` →
+<strong>Schedule editor</strong>) is now the primary way to build and edit
+schedules. It's a full-page, drag-and-drop surface that spans multiple weeks. The
+Discord `/schedule` commands below still work and remain handy for a quick
+one-week generate, but the web editor is where the richer editing lives.
+</Callout>
 
-View team availability by region.
+## Week-anchored schedules
 
-- `region` `String`
+Every schedule belongs to a **calendar week**, identified by that week's UTC
+Monday (`weekStart`). This is the core of the v2 model:
 
-This is an availability overview, not the generated weekly match schedule.
+- **Up to 8 weeks can be scheduled at once** — the current week plus the next
+  seven. Plan a fortnight, a month, or a whole split ahead of time.
+- **At most one active schedule per week.** Publishing no longer "voids the
+  current schedule" — it only replaces the schedule for *that specific week*, and
+  only when you deliberately rebuild a week that's already published (behind a
+  confirmation).
+- Week identity comes from the schedule itself, never guessed from a fixture's
+  timestamp — so a Sunday-night slot that lands in the next UTC day is still
+  counted in the right week.
+
+## The web Schedule editor
+
+Open it from the schedule page's **Schedule editor** button. The editor is a
+week navigator:
+
+- **Week strip** — eight chips across the top, each labelled `Live · N`,
+  `Break`, or `Empty`. Pick a week to build or edit it in place.
+- **Generate** — fill the selected week from team availability, region, elo
+  bounds, the weekly match cap, and repeat-pair penalties (the same matchmaker as
+  `/schedule generate`). Repeat-pair avoidance now looks **across weeks**, so
+  back-to-back weeks don't rematch the same teams.
+- **Move / create / remove matches** — drag a fixture to another slot, or drag a
+  team from the rail into a slot. Drag **two** teams into the same slot and they
+  auto-match. Removing a fixture returns its teams to the unscheduled rail.
+- **Availability wash** — click a team to "focus" it and every slot washes green
+  (available) or red (not); shift-click multiple teams to see where they overlap.
+  Clicking a scheduled match shows both teams' availability so you can move it to
+  a slot that works.
+- **Out-of-availability placements** are allowed but flagged: you get a warning
+  marker and a confirmation before the fixture is placed on a slot a team hasn't
+  marked.
+- **Break weeks** — publish an empty week to mark it a **Break week**. It shows
+  in the strip and blocks automatic generation for that week.
+- **Rebuild / delete a week** — regenerate a published week (replacing it, behind
+  a consent dialog) or delete it entirely; deleting refunds any open predictions
+  on its fixtures and DMs affected captains.
 
 ## `/schedule generate`
 
-Generate and post the weekly matchmaking schedule using the current guild config.
+Generate and publish the schedule for the **target week** — the week containing
+the earliest enabled match day from now. Uses the current guild config: active
+teams (vacation teams skipped), region, enabled match days, overlapping
+availability, elo floor/ceiling, the weekly match cap, and cross-week repeat
+penalties.
 
-The generator uses:
-
-- active teams (vacation-mode teams are skipped)
-- region
-- enabled matchmaking days
-- overlapping availability
-- ELO floor and ceiling
-- weekly match cap per team
-- recent match history penalties to reduce repeats
-
-Schedules are also generated automatically every week at the time configured via
-`/config` (`matchmaking-gen-day`, `matchmaking-gen-hour-utc`,
-`matchmaking-gen-minute-utc`), once a `matchmaking-channel` is set. Automatic
-generation can be turned off entirely with `/config matchmaking-auto:False`.
+Schedules also generate **automatically** each week at the time set by `/config`
+(`matchmaking-gen-day`, `matchmaking-gen-hour-utc`, `matchmaking-gen-minute-utc`),
+once a `matchmaking-channel` is set. Automatic generation **skips any week that
+already has a hand-built schedule**, so your manual work is never overwritten.
+Turn it off entirely with `/config matchmaking-auto:False`.
 
 ## `/schedule draft`
 
-Generate a draft schedule in the current channel instead of announcing it. Every
-matchup shows its elo gap (Δ). The draft message is a full editing surface (the
-buttons themselves remain Organizer-only):
+Generate a draft in the current channel instead of announcing it. Every matchup
+shows its elo gap (Δ). The draft message is an editing surface (buttons are
+Organizer-only): **Regenerate**, **Remove a match…**, **Add match** (team →
+opponent → slot), **Swap teams**, **Publish**, **Discard**. Nothing is announced
+until Publish. Drafts are in-memory working copies — a bot restart expires an old
+draft's buttons.
 
-- **Regenerate** — re-rolls the whole schedule in place (the matchmaker has
-  intentional variety, so each roll can differ).
-- **Remove a match…** — dropdown listing every drafted match; pick one to delete it
-  and return its teams to the unscheduled pool.
-- **Add match** — three-step picker (team → opponent → slot) to schedule any two
-  teams manually. Unscheduled teams list first; already-scheduled teams are labeled
-  and can be given an extra match. Elo bounds are intentionally not enforced for
-  manual matches — you chose them.
-- **Swap teams** — pick two matches in the same region and their opponents are
-  exchanged.
-- **Publish** — posts the draft to the configured `matchmaking-channel` as a
-  tracked schedule (see below), then freezes the draft and stamps who published it.
-- **Discard** — deletes the draft.
+## `/schedule view`
 
-Nothing is announced until Publish is pressed. Pairs well with
-`matchmaking-auto:False` for leagues that want a human to approve every week's
-schedule. Drafts are working copies held in memory — if the bot restarts, an old
-draft's buttons expire and `/schedule draft` starts a fresh one.
+View team availability by region (`region` `String`). This is an availability
+overview, not the generated schedule.
+
+## Configurable slot times
+
+Match slots are **per-league and per-region**. Each region can define **1–6**
+nightly slots with its own times and timezone (for example `8:30`, `9`, `9:30`,
+`10` PM Eastern), set under `/config` or the web Competition settings. Unconfigured
+leagues keep the historical three slots (8/9/10 local). A published schedule
+**snapshots** its slot labels, so changing times later never rewrites an
+already-published week. Changing a region's slot **count** resets that region's
+team availability grids, since a cell's meaning would otherwise shift.
 
 ## Published schedules
 
-Every published schedule — whether from `/schedule generate`, the weekly automatic
-generation, or a draft's **Publish** button — is persisted in the database. **One
-schedule is active per guild at a time**: publishing a new one voids the previous
-one and edits its message with a "voided" notice, so regenerating mid-week cleanly
-supersedes the old post.
+Every published schedule — from `/schedule generate`, the automatic weekly run,
+a draft's **Publish**, or the web editor — is persisted per week. The published
+Discord message carries Organizer-only buttons (or, if
+`/config matchmaking-admin-channel` is set, the public post stays a clean embed
+and the buttons live on a synced mirror in the admin channel):
 
-The published message carries two Organizer-only buttons (or, if
-`/config matchmaking-admin-channel` is set, the public post stays a clean embed and
-the buttons live on a mirror copy in that admin channel — both copies stay in sync
-automatically):
-
-- **📊 Report result** — a wizard: pick the match, pick the winner, then enter both
-  scores in a pop-up form. The result goes through the exact same pipeline as
-  `/elo match` (elo update, match record, audit log, leaderboard refresh, `#scores`
-  post), and the schedule embed updates in place — the fixture line changes from
-  `Team A vs Team B (Δ…)` to `✅ Winner 3-1 Loser`. The button disables once every
-  match has a result.
+- **📊 Report result** — a wizard: pick the match, pick the winner, enter both
+  scores. The result runs the same pipeline as `/elo match` (elo update, match
+  record, audit log, leaderboard refresh, `#scores` post) and the fixture line
+  updates in place to `✅ Winner 3-1 Loser`. Disables once every match is played.
 
   **Scheduled matches can also record themselves.** When stat tracking detects a
-  scheduled pair playing on a tracked server (both rosters seated), the session is
-  classified competitive and an arbiter watches the series — length comes from
-  `/config series-format` (default **best of 5, first to 3 maps**). At three map wins the result is entered automatically through the same
-  pipeline, the schedule updates, and the series is announced in-game and in the
-  stat events channel. With `stats-approval: manual`, the result waits until an
-  organizer approves the stat match; the tracked stats and the league match stay
-  linked either way.
-- **✏️ Edit schedule** — remove a scheduled match (its teams return to the
-  Unscheduled list) or add a new one with the same three-step picker as drafts.
-  Played matches can't be removed — void the match instead. Edits update the
-  published message immediately and are recorded in the audit log.
-- **🗑 Delete** — voids the schedule and removes both the published message and its
-  admin mirror (after a confirmation prompt). Match results that were already
-  recorded through the schedule are kept — deleting the schedule never touches elo.
+  scheduled pair playing on a tracked server (both rosters seated, and the game
+  meets the league's [minimum match format](/platform/stat-tracking)), the session
+  is classified competitive and an arbiter watches the series — length comes from
+  `/config series-format` (default best of 5, first to 3). At the deciding map the
+  result is entered automatically through the same pipeline. With
+  `stats-approval: manual`, it waits for an organizer to approve the stat match;
+  the tracked stats and the league match stay linked either way.
+- **✏️ Edit schedule** — remove a scheduled match (teams return to Unscheduled) or
+  add one with the three-step picker. Played matches can't be removed — void the
+  match instead. Edits update the message immediately and are audited.
+- **🗑 Delete** — voids that week's schedule and removes the message and its admin
+  mirror (after a confirm). Recorded results are kept — deleting a schedule never
+  touches elo; open predictions on its fixtures are refunded.
 
-Results reported the normal way (`/report-match` or `/elo match`) are also linked
-automatically: if the two teams have a scheduled fixture on the active schedule, it
-is marked played and the embed refreshes on its own.
+Results reported the normal way (`/report-match` or `/elo match`) are linked
+automatically to a scheduled fixture within a few days of its slot.
 
 ## Captain DMs & reminders
 
-Publishing a schedule DMs both captains of every fixture with their matchup and a
-local-time Discord timestamp. Captains are also DM'd when their match is affected by
-an edit — added, removed, or cancelled by a schedule deletion.
-
-Each match start time is resolved from the region's slot times (DST-aware), and
-captains automatically receive:
-
-- a **day-of reminder** (12 hours before the slot), and
-- an **hour-before reminder**.
-
-Reminder state is stored on the schedule, so bot restarts never cause duplicate DMs.
-A match added less than 12 hours out only gets the closest applicable reminder. All
-DMs are best-effort — captains with closed DMs are skipped silently, and schedules
-published before this feature existed don't have start times, so reminders begin
-with the next published schedule.
+Publishing DMs both captains of every fixture with their matchup and a local-time
+Discord timestamp; captains are also DM'd when their match is added, moved, or
+cancelled. Each start time is resolved from the region's configured slot times
+(DST-aware), and captains get a **day-of reminder** (12 hours before) and an
+**hour-before reminder**. Reminder state is stored on the schedule, so restarts
+never duplicate DMs, and a match added inside 12 hours only gets the closest
+applicable reminder. All DMs are best-effort — closed DMs are skipped silently.

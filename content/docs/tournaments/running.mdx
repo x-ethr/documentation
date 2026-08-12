@@ -1,0 +1,88 @@
+---
+title: "Running a tournament"
+---
+
+Everything happens on the tournament's page at [heir.gg](https://heir.gg) →
+**Tournaments**. A tournament moves through four states: **draft** (building the
+field), **group**/**bracket** (running), and **complete**. Only Organizers create
+and run tournaments; captains and members interact through registration and, for
+unranked cups, self-serve sign-ups.
+
+## 1. Create
+
+**Tournaments → New tournament.** Set:
+
+- **Name**.
+- **Format** — single or double elimination, or groups → elimination; bracket
+  **size** (4/8/16/32, or a custom size on Pro); optional **third-place match**
+  (single elim) and **grand-final reset** (double elim). Group stages set a group
+  **count** and how many **qualify per group** — the two must multiply to the
+  bracket size (e.g. 4 groups × 2 qualify = an 8-team bracket).
+- **Ranked** — on to feed league elo (league teams only), off for a standalone or
+  custom-team cup.
+- **Registration** (optional) — open sign-ups, an optional **cap**, a **close
+  time**, and whether members may **enter their own team** (unranked only).
+
+A draft can be edited or deleted freely; nothing is announced until you start.
+
+## 2. Build the field
+
+Add teams while the tournament is a draft:
+
+- **Add a league team** — pick from the league's active teams. A team already
+  rostered in another live tournament match can't be double-booked.
+- **Auto-fill** — one click fills the remaining slots with eligible league teams,
+  ordered by elo.
+- **Clear teams** — empties the field to start over.
+- **Registration** — when open, captains enter their own team from the team page,
+  and (if enabled) members enter a **custom team** built from existing league
+  players. Entering a web-native league's tournament automatically makes you a
+  player of that league.
+
+### Seeding
+
+Seeds decide the bracket layout. Drag teams to set seeds by hand; any teams you
+leave unseeded are seeded by **elo** (strongest first) when the tournament starts.
+Manual seeds always hold their position.
+
+## 3. Start
+
+**Start** locks the field, closes registration, seeds the bracket, and builds the
+match graph. From here the format is fixed. A tournament needs at least 2 teams
+(and group stages need at least 2 teams per group). Starting a groups format opens
+the **group** stage first; a plain bracket opens straight into **bracket** play.
+
+## 4. Play
+
+The bracket renders on a pannable, zoomable **canvas** — drag to pan, scroll to
+zoom, and use the minimap to navigate a large bracket. Group standings sit behind
+a toggle on the same canvas.
+
+- **Schedule a match** — click a match and set a start time. Scheduled matches DM
+  both captains, send day-of and hour-before reminders, and open predictions.
+- **Report a result** — click a **ready** match node (it shows a **Report**
+  affordance) to open the score dialog, enter both scores, and record it. The
+  winner advances into the next slot immediately, and in a group the standings
+  recompute. Scores can't tie.
+- **Void a result** — reopens a match. You have to void later matches that
+  depended on it first (the bracket won't silently rewrite a played round).
+
+### Recording matches in-game
+
+On a tracked server, bind a bracket match to the collector with its 4-character
+code — `.start K7QX` — exactly like a weekly fixture. The session is tracked and
+its stats attach to that tournament match. For a **ranked** cup the series result
+is recorded automatically (elo + league record) at the configured series length;
+for **unranked**, the stats attach but the score is reported on the bracket. See
+[Stat tracking](/platform/stat-tracking).
+
+## 5. Finish
+
+- **Finalize** — available once every match is played. It crowns the champion,
+  archives final **placements** onto each team's profile, awards placement
+  achievements, and posts the podium to Discord.
+- **Cancel** — ends a running tournament with no champion. Played results stay on
+  record; any open bets are refunded.
+
+Ranked results move real elo, so they're applied by the bot; unranked results are
+written directly from the web. Either way, the bracket and the podium are the same.

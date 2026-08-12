@@ -2,63 +2,70 @@
 title: "Basic Usage"
 ---
 
-## Organizer Setup Flow
+Once your league is live you can run it from **the web** (`heir.gg/<league>`),
+from **Discord** (slash commands), or both — they act on the same league. This
+page shows the common flows both ways.
 
-If you are setting up a new guild:
+## Organizer setup
 
-1. Invite the bot
-2. Get the guild activated
-3. Run `/sync-users`
-4. Run `/config` to set regions, roster size, and matchmaking
-5. Create or reform teams
+After [installation](/getting-started/installation), finish configuring the league:
 
-## Player Flow
+- **Web** — open `heir.gg/<league>/manage`. Set regions, roster size, match
+  nights, series format, and scheduling under the **Competition** and **Stat
+  tracking** cards. The save bar tracks unsaved changes and blocks navigation
+  until you save or discard.
+- **Discord** — run `/sync-users`, then `/config` to set the same options.
+
+## Player flow
 
 To join a team:
 
-- You must have the `Free Agent` role
-- A captain uses `/roster add` to add you
+- You need the **Free Agent** role (Discord leagues grab it from `#get-roles`).
+- A captain adds you — `/roster add` in Discord, or the **Roster** card on the
+  team page on the web.
 
-To leave a team:
+To leave a team, use `/leave-team` (or the web team page). If the departing player
+is the captain, captaincy is reassigned automatically when possible; if they were
+the last player, the team is disbanded.
 
-- Use `/leave-team`
+## Captain flow
 
-If the departing player is the captain, captaincy is reassigned automatically when possible. If the captain was the last remaining player, the team is disbanded.
+Captains manage one team, from either surface:
 
-## Captain Flow
+- **Roster** — add, kick, and set captain
+- **Team identity** — name, region, and a two-color gradient team color
+- **Availability** — the web availability grid is the primary way to set when your
+  team can play (it shows your region's real slot times and edits the whole week
+  at once); `/team-availability view` and `vacation` remain in Discord
+- **Locations** — preferred server locations for matchmaking
+- **Tournaments** — enter open cups with one click from the team page
 
-Captains are responsible for:
+## Weekly matchmaking flow
 
-- `/roster add`
-- `/roster kick`
-- `/roster set-captain`
-- `/edit-team`
-- `/disband-team`
-- `/team-availability set-time`
-- `/team-availability set-locations`
+The weekly schedule uses team availability, region, elo bounds, a per-team weekly
+match cap, and recent-history penalties to reduce back-to-back repeats.
 
-## Weekly Matchmaking Flow
+1. Captains set availability (web grid).
+2. An Organizer configures matchmaking (web **Competition** card or `/config`).
+3. Schedules generate automatically each week, or an Organizer builds them in the
+   **schedule editor** on the web (or `/schedule generate` / `draft` in Discord).
+4. Published schedules post to the league and DM both captains of every fixture.
 
-The weekly schedule system uses:
+See [`/schedule`](/commands/schedule) for the full scheduling model.
 
-- team availability
-- region
-- ELO bounds
-- per-team weekly match cap
-- recent match history penalties to reduce back-to-back repeats
+## Reporting results
 
-Typical workflow:
+Results can be recorded three ways:
 
-1. Captains set availability
-2. Organizer configures matchmaking with `/config`
-3. Organizer runs `/schedule generate` or waits for automatic generation
-4. Schedule is posted to the configured announcement channel
+- **Tracked servers** — competitive matches record and score themselves.
+- **`/report-match`** — the winning captain reports in Discord.
+- **`/elo match`** or the schedule's **Report result** button — organizer entry.
 
-## Reporting Results
+If a result must be undone, void the match (`/admin match-void`).
 
-There are two ways to record results:
+## Running without Discord
 
-- `/report-match`: winner's captain reports the match
-- `/elo match`: organizer-style manual result entry
-
-If a result must be undone, use `/admin match-void`.
+A **web-native** league (created without a Discord server) runs entirely from the
+browser — the flows above apply, minus the Discord commands. Teams are records
+rather than roles, and there's no bot to invite. See
+[Installation](/getting-started/installation).
