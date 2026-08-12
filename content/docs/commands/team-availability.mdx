@@ -6,33 +6,22 @@ Captain-facing availability and server preference commands.
 
 ## `/team-availability set-time`
 
-Set team availability for scheduling.
+**Availability is now set on the web.** Running this command replies with a link to
+your team's availability grid at `heir.gg/<league>/team`, where a captain can toggle
+the whole week at once.
 
-- `day` `String`
-- `slot` `String`
-- `available` `Boolean`
+Setting availability moved off Discord because leagues can now configure their own
+per-region **slot times and counts** (see [scheduling](/commands/schedule)). A fixed
+Discord picker couldn't reflect that — it only ever offered three slots with hard-coded
+labels, so a league running four slots (or its own times) couldn't set them here. The
+web grid shows each region's real times and edits every day and slot in one place, and
+it works for Discord-linked leagues too.
 
-Supported days:
-
-- `all`
-- `Monday`
-- `Tuesday`
-- `Wednesday`
-- `Thursday`
-- `Friday`
-- `Saturday`
-- `Sunday`
-
-Supported slots:
-
-- `all`
-- `1`
-- `2`
-- `3`
-
-Matches are only scheduled on the days the server has enabled (`matchmaking-days` in
-`/config`). Teams created before a day became a match day are treated as unavailable on
-that day until their captain sets it.
+<Callout type="info">
+Nothing about the underlying availability changed — matches are still only scheduled on
+the days the league has enabled (`matchmaking-days` in [`/config`](/commands/config)),
+and a team is treated as unavailable on a day until its captain sets it.
+</Callout>
 
 ## `/team-availability set-locations`
 
@@ -55,4 +44,5 @@ Toggle vacation mode for your team (captain only). While on vacation:
 
 ## `/team-availability view`
 
-View your team's current availability.
+View your team's current availability, rendered with your region's real slot times,
+plus a link to edit it on the web.

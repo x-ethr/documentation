@@ -12,13 +12,24 @@ competitive / scrim / pug.
 
 - `game` `String` (choice) — currently Mordhau
 - `label` `String` — short unique handle, e.g. `comp-1` (lowercase, dashes)
-- `host` `String` — server IP or hostname
+- `host` `String` — server **public** IP or hostname
 - `port` `Integer` — the **RCON** port (TCP), not the game port
 - `password` `String` — the RCON password
 
 The password is stored **encrypted at rest** (AES-256-GCM). Servers are identified
 by `host:port` — adding the same address twice errors with the existing label, and
 labels are unique per game. The collector connects within a minute of adding.
+
+The host must resolve to a **public** address. Private, loopback, link-local, and
+cloud-metadata addresses (`127.0.0.1`, `10.x`/`172.16–31.x`/`192.168.x`,
+`169.254.169.254`, …) are rejected — the collector will never be pointed at an
+internal service.
+
+<Callout type="info">
+**One server, many leagues.** Two leagues can register the same `host:port` — Heir
+keeps a single RCON connection and fans it out, and each league records into its own
+data with its own [minimum match format](/platform/stat-tracking#minimum-match-format).
+</Callout>
 
 ## `/server remove`
 
@@ -66,30 +77,12 @@ Every time a tracked map (SKM/HPT) starts, the bot announces in server chat:
 
 Players holding the **Ref role** (or Organizer role, or Administrator) — matched
 via their linked PlayFab ID, so refs must have run `/identity link` — can control
-tracking from in-game chat, and the bot answers in chat:
+tracking from in-game chat (`.start`, `.stop`, `.void`, `.status`, `.red`/`.blue`).
+The full ref command reference lives with
+[Stat Tracking → In-game controls](/platform/stat-tracking#in-game-controls); a
+forgotten-`.stop` nag and a 30-minute arm timeout guard against stray sessions.
 
-- **`.start`** — forces the current session **competitive** (overrides automatic
-  classification; applies to the next session if none is open). Announces
-  `[ETHR] Competitive tracking STARTED by <name>.`
-- **`.stop`** — finalizes the session immediately (stats flush, finish embed
-  posts with Approve/Void).
-- **`.void`** — closes AND voids the session (false start, remake). Recoverable
-  via Approve on its finish embed.
-- **`.status`** — re-announces the current tracking state: mode, map,
-  classification (and who `.start`ed it), game number, and live score — or
-  "tracking idle" when nothing is being recorded.
-
-Commands from anyone else are silently ignored. Every ref action is also posted
-to the stats channel with who did it.
-
-Two safety nets around `.start`:
-
-- **Forgotten-`.stop` nag** — every map that finishes while the override is
-  active gets an in-game reminder: *"Still tracking COMPETITIVE — type .stop if
-  the match is over."* The override persists across maps in one continuous
-  session by design (multi-map matches), so the nag is the guard rail.
-- **Arm timeout** — a `.start` issued before any session opens expires after 30
-  minutes if no match materializes, announced in-game and in the stats channel.
-
-Void/Approve toggle in both directions and every transition is audited. Voiding a
-round or game excludes just that data; voiding a stat match excludes all of it.
+Commands from anyone else are silently ignored, and every ref action is posted to
+the stats channel with who did it. Void/Approve toggle in both directions and every
+transition is audited. Voiding a round or game excludes just that data; voiding a
+stat match excludes all of it.

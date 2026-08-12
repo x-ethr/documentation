@@ -84,6 +84,64 @@ UTC hour for automatic generation.
 
 UTC minute for automatic generation.
 
+<Callout type="info">
+Per-region **slot times** (which nightly times each region plays, and how many
+slots) are configured on the web under **League settings → Competition**, not with
+`/config`.
+</Callout>
+
+## Stat Tracking Config
+
+Settings for the in-game collector and player stats. See
+[Stat Tracking](/platform/stat-tracking) for the full picture.
+
+### `min-team-size`
+
+Smallest match format the collector records, per side: `1` = 1v1 … `8` = 8v8
+(default `3` = 3v3). Games with fewer than `size × 2` players on teams aren't
+recorded — this keeps post-pug duels and warmups out of the stats, and applies to
+every match including a ref's `.start`.
+
+### `stats-channel`
+
+Channel receiving live stat events (tracking started, round end, map end, tracking
+finished), each with **🗑 Void / ✅ Approve** buttons.
+
+### `stats-approval`
+
+`manual` (default): tracked stat matches are **pending** and count toward nothing
+until an organizer approves them. `auto`: they count immediately and organizers void
+the occasional bad one.
+
+### `ref-role`
+
+Role allowed to use the in-game ref commands. Must be a specific role — `@everyone`
+is rejected, since it would make every linked player a ref.
+
+### `series-format`
+
+League series length used by the automatic result arbiter: Best of 1 / 3 / 5 / 7
+(default **Best of 5**, first to 3 maps).
+
+### `min-rating-rounds`
+
+Rounds a player needs in a bucket before they receive a rating or leaderboard rank
+(whole number 1–1000; default 50).
+
+### `stats-leaderboard-channel`
+
+Channel holding the persistent per-bucket stat leaderboard embeds (see
+[`/stats leaderboard`](/commands/stats#persistent-leaderboards)).
+
+### `stats-leaderboard-buckets`
+
+Which buckets get their own embed there: a comma-separated subset of
+`competitive,casual,overall`, or `all` / `none` (default `competitive,overall`).
+
+### `team-leaderboard-channel`
+
+Channel holding the persistent team elo leaderboard.
+
 ## Example
 
 ```text

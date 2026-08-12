@@ -6,6 +6,18 @@ The fastest way to start a league is the guided setup at
 [heir.gg/start](https://heir.gg/start) — it configures everything in about a
 minute and activates your league immediately. No approval step, no waiting.
 
+Setup asks one question up front: **do you want a Discord server, or not?**
+
+- **With Discord** — teams are Discord roles, captains can use slash commands, and
+  the bot runs matchmaking and stat tracking in your server.
+- **Web only** — a league that lives entirely on [heir.gg](https://heir.gg), with
+  no Discord server and no bot required.
+
+You can pick what the league runs — **League**, **Tournaments**, or both — either
+way, and change it later in Settings.
+
+## With Discord
+
 <Steps>
 ### Sign in
 
@@ -45,23 +57,50 @@ Choose Free (everything a league needs, no card) and finish. Your league
 activates **immediately** — activation never waits on billing.
 </Steps>
 
+## Web only
+
+<Steps>
+### Sign in
+
+Sign in with Discord at [heir.gg/start](https://heir.gg/start) — your Discord
+account is still your Heir account, you just won't connect a server.
+
+### Name your league and pick what it runs
+
+Give the league a name and choose **League**, **Tournaments**, or both.
+
+### Pick a plan and finish
+
+Choose a plan and finish. The league is created on the spot — no bot to invite,
+no permission checks — and you land straight in it as the owner. Teams are
+records you create from the web, and everything is managed at
+`heir.gg/<league>/manage`.
+</Steps>
+
+<Callout type="info">
+A web-only league can't run in-game stat tracking (that needs the bot on a game
+server), but everything else — teams, ratings, schedules, tournaments, and public
+profiles — works the same.
+</Callout>
+
 ## After setup
 
-1. Players grab the **Free Agent** role from `#get-roles` (Heir handles the
-   button itself).
-2. Captains create teams with `/team create`.
-3. Players link their game account with `/identity link` — or from their
+1. Players grab the **Free Agent** role from `#get-roles` (Discord leagues), or
+   are added to teams directly on the web.
+2. Captains create teams — `/team create` in Discord, or the team tools on the web.
+3. Players link their game account with `/identity link`, or from their
    [account settings](https://heir.gg/settings) on the web.
 
 ## Changed your mind?
 
 - **Start over** (bottom of the wizard) discards your draft and begins again.
-- **Cancel** removes everything: Heir deletes the channels and roles it
-  created, removes the league's records, and leaves your server. Cancelling
-  before the install just clears the draft.
+- **Cancel** on a Discord league removes everything: Heir deletes the channels
+  and roles it created, removes the league's records, and leaves your server.
+  Deleting a web-only league removes its records. Cancelling before the install
+  just clears the draft.
 
 <Callout type="warning">
-Only the <strong>server owner</strong> can run setup or cancel it. Once the
-league is live, day-to-day management opens up to Organizers too — see
-<a href="/platform/league-management">League Management</a>.
+For Discord leagues, only the <strong>server owner</strong> can run setup or
+cancel it. Once the league is live, day-to-day management opens up to Organizers
+too — see <a href="/platform/league-management">League Management</a>.
 </Callout>

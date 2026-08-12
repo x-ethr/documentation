@@ -3,7 +3,8 @@ title: "League Management"
 ---
 
 Live leagues are managed from the web at **your league page → ⋮ → Manage
-league**, or directly at `heir.gg/<server-id>/manage`.
+league**, or directly at `heir.gg/<slug>/manage`. Nearly everything an organizer
+used to do from Discord now has a richer home in the browser.
 
 ## Who can do what
 
@@ -12,18 +13,30 @@ so role changes take effect within minutes.
 
 | Rung | Can |
 |---|---|
-| Anyone | View standings, players, matches, tier lists |
+| Anyone | View standings, players, matches, tier lists, tournaments |
 | Signed in | Everything above, plus their own dashboard, settings, and linked accounts |
 | Player | Appears in leagues; joins teams |
-| **Organizer** (role) | Manage league settings from the web; all organizer bot commands |
+| **Organizer** (role) | Manage league settings, schedules, teams, and tournaments from the web; all organizer bot commands |
 | **Server owner** | Everything an Organizer can, plus setup, cancel, and **deleting the league** |
+
+<Callout type="info">
+Only the <strong>server owner</strong> can grant or revoke the Organizer role
+from the web — organizers can't create other organizers.
+</Callout>
 
 ## League settings
 
-The management page covers what `/config` covers, from the browser: regions,
-match nights, series format, roster size, the channels Heir posts to, the ref
-role, and stat approval. Changes are applied **by the bot itself** — the page
-waits for Heir's confirmation before reporting a save, and every change is
+The management page covers everything `/config` covers, from the browser:
+regions, match nights, per-region [slot times](/commands/schedule#configurable-slot-times),
+series format, [minimum match format](/platform/stat-tracking), roster size, the
+channels Heir posts to, the ref role, stat approval, predictions, team colors,
+and branding.
+
+Every settings page shares a **Discord-style save bar**: make changes across any
+tab and one bar tracks them all, with **Save changes** / **Discard**. Navigating
+away with unsaved changes is blocked (the screen shakes) until you save or
+discard. For Discord-linked leagues the change is applied **by the bot itself** —
+the bar waits for Heir's confirmation before reporting a save. Every change is
 recorded in the league's audit log.
 
 <Callout type="info">
@@ -31,12 +44,37 @@ The <strong>game</strong> is fixed at setup and cannot be changed — switching
 games would orphan every linked account, stat, and rating.
 </Callout>
 
+## The Schedule editor
+
+Building and editing weekly schedules lives on the web at
+`heir.gg/<slug>/schedule` → **Schedule editor**. It's a full-page, drag-and-drop
+week navigator that can hold up to eight weeks at once — generate a week from
+availability, drag teams into slots, focus a team to see its availability wash
+green/red, mark break weeks, and rebuild or delete any week. See
+[Weekly scheduling](/commands/schedule) for the full model.
+
+## Team management
+
+Organizers manage teams from the web too — create and disband teams, edit rosters
+and captains, set team colors (including two-color gradients), and review team
+profiles. Captains manage their own team's **availability** on the web: the
+availability grid shows each region's real slot times and lets a captain toggle
+the whole week at once, which is why availability moved off the
+`/team-availability set-time` command (a static Discord picker couldn't reflect
+per-league slot times).
+
+## Tournaments
+
+Cups run alongside the league from the web — single- or double-elimination
+brackets and group stages, self-serve registration, seeding, and live public
+brackets. See [Tournaments](/tournaments/overview).
+
 ## Deleting a league
 
 Owner only, from the league page's **⋮ menu**. Deletion asks you to type the
 league's exact name, then permanently removes:
 
-- every team, match, stat, rating, and schedule
+- every team, match, stat, rating, schedule, and tournament
 - the league's audit history and registered game servers
 - the channels and roles Heir created
 - Heir itself — the bot leaves your server
@@ -49,6 +87,6 @@ before deleting anything.
 ## Transferring your server
 
 If you transfer Discord server ownership, Heir follows automatically: the new
-owner gains owner-level access (management, deletion) within a few minutes,
-and the previous owner keeps only whatever roles they still hold. There is
-nothing to reconfigure.
+owner gains owner-level access (management, deletion) within a few minutes, and
+the previous owner keeps only whatever roles they still hold. There is nothing to
+reconfigure.

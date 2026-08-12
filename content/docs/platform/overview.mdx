@@ -2,63 +2,97 @@
 title: "Platform Overview"
 ---
 
-Heir is competition infrastructure that lives in your Discord server. One bot runs
-the league; a public site publishes the results.
+Heir is competition infrastructure with two front doors: a Discord bot that runs
+your league from inside your server, and a full web app at
+[heir.gg](https://heir.gg) that manages the same league from a browser. You can
+run a league with Discord, without it, or both at once.
+
+## Two ways to run a league
+
+- **Discord-linked** — invite the bot to your server. Teams are Discord roles,
+  captains use slash commands, and the web app mirrors everything: changes you
+  make on [heir.gg](https://heir.gg) are handed to the bot to apply.
+- **Web-native** — create a league at [heir.gg/start](https://heir.gg/start)
+  with no Discord server at all. Teams are records, management happens entirely
+  in the browser, and no bot is required. See
+  [Installation](/getting-started/installation).
+
+Either way the league layer is identical — the same teams, ratings, schedules,
+tournaments, and public profiles.
 
 ## What it manages
 
-- **Teams** — creation, editing, reforming, disbanding, and name/color history
+- **Teams** — creation, editing, reforming, disbanding, two-color gradient team
+  colors, and name/color history
 - **Rosters** — captains, roster moves, free agents, and player syncing
 - **Ratings** — margin-of-victory elo, regional leaderboards, seasons, and placements
-- **Scheduling** — weekly matchmaking from availability and elo bounds, with captain DMs
+- **Scheduling** — weekly matchmaking from availability and elo bounds, with a
+  full web schedule editor and captain DMs
+- **Tournaments** — single/double elimination and group-stage cups with sign-ups,
+  seeding, and live public brackets — see [Tournaments](/tournaments/overview)
 - **Results** — reported manually, or recorded automatically from tracked play
 - **Stat tracking** — live capture from your game servers, per round and per map
 - **Profiles** — public player and team pages on [heir.gg](https://heir.gg)
 - **Configuration** — every rule above is per-guild; nothing is hard-coded to one league
 
+## The web management surface
+
+Owners and Organizers manage everything from `heir.gg/<league>/manage`. Settings
+are grouped into cards — **League**, **Competition**, **Channels**, **Stat
+tracking**, **Predictions**, and **Branding** — and a Discord-style save bar
+tracks unsaved changes across every card, blocking navigation until you save or
+discard. Every organizer action lands in an audit log with Discord mentions
+resolved to names.
+
+For Discord-linked leagues the web app doesn't write league data directly — it
+enqueues your changes for the bot, which re-authorizes you and applies them, so
+the web and Discord never disagree. Web-native leagues are written directly.
+
 ## Game agnostic by design
 
-The league layer — teams, elo, scheduling, profiles, achievements — knows nothing
-about any particular game. A title plugs in as a module that defines two things:
-how a player proves their in-game identity, and where match data comes from.
-Mordhau is live today; see [Stat Tracking](/platform/stat-tracking).
+The league layer — teams, elo, scheduling, tournaments, profiles, achievements —
+knows nothing about any particular game. A title plugs in as a module that
+defines two things: how a player proves their in-game identity, and where match
+data comes from. Mordhau is live today; see [Stat Tracking](/platform/stat-tracking).
 
 ## Roles in a league
 
 | Role | Responsibility |
 | --- | --- |
-| **Organizer** (or server admin) | Configures the guild, runs organizer commands, approves tracked stats |
+| **Owner** | Creates the league, holds every permission, manages billing; only the owner can promote Organizers |
+| **Organizer** (or server admin) | Configures the league, runs organizer actions, approves tracked stats |
 | **Captain** | Manages one team's roster and availability |
 | **Player** | Joins teams, links their in-game account, plays |
 | **Ref** *(optional)* | Controls stat tracking from in-game chat |
 
-Access is granted through Discord's own Integrations settings and your server's
-roles — there is no separate permission system to learn. Every organizer action is
+For Discord-linked leagues, access is granted through Discord's own Integrations
+settings and your server's roles — there is no separate permission system to
+learn. Web-native leagues manage roles from the web. Every organizer action is
 written to an audit log.
 
 ## Access model
 
-The bot is gated by guild activation.
+A league created through the web — Discord-linked or web-native — **activates
+immediately** at the end of the setup wizard. There is no approval step and
+activation never waits on billing.
 
-- A server can invite the bot before activation.
-- Commands stay blocked until the guild is activated.
-- Activation is currently manual.
-
-<Callout type="warning">
-If your server has invited the bot but commands are blocked, contact <code>@peenie</code> to activate the guild.
+<Callout type="info">
+Legacy guilds that invited the bot directly (outside the wizard) may still be
+gated behind manual activation — if commands are blocked, run setup at
+[heir.gg/start](https://heir.gg/start) or contact <code>@peenie</code>.
 </Callout>
 
 ## A typical league
 
-1. Install the bot and activate the guild — see [Installation](/getting-started/installation)
-2. Run `/sync-users` and configure with `/config`
+1. Create the league at [heir.gg/start](https://heir.gg/start) — with or without Discord
+2. Configure it from `heir.gg/<league>/manage` (or `/config` in Discord)
 3. Create or reform teams; captains take over rosters and availability
-4. Schedules generate weekly (or on demand with `/schedule generate`)
-5. Results arrive from `/report-match`, or record themselves from tracked servers
-6. Ratings, standings, and profiles update on their own
+4. Schedules generate weekly, or you build them in the web schedule editor
+5. Results arrive from `/report-match`, the web, or tracked servers on their own
+6. Ratings, standings, and profiles update automatically
 
 ## Notes
 
-- Almost all commands are guild-only; a few owner-only DM commands exist for platform operations.
-- Matchmaking is guild-specific — every guild has its own configuration namespace.
-- Seasons are per guild: `/admin season-end` archives placements and soft-resets elo.
+- Almost all Discord commands are guild-only; a few owner-only DM commands exist for platform operations.
+- Matchmaking is guild-specific — every league has its own configuration namespace.
+- Seasons are per league: ending a season archives placements and soft-resets elo.
