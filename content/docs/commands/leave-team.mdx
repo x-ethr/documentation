@@ -4,10 +4,19 @@ title: "`/leave-team`"
 
 Leave your current team.
 
+## Confirmation
+
+The command replies with an ephemeral summary and a red **confirm** button
+before doing anything — dismissing the message cancels. The summary spells out
+the consequences for *your* situation:
+
+- If you're the **captain**, captaincy passes to a random remaining member.
+- If you're the **last member**, the team disbands.
+
 ## What Happens
 
 - Your team role is removed
 - Your `Free Agent` role is added
 - Your player record is detached from the team
-- If you were captain, the bot tries to assign a new captain
+- If you were captain, a random remaining member becomes captain
 - If you were the last player, the team is disbanded automatically

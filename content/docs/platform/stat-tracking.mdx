@@ -36,7 +36,7 @@ solo warmup, or a half-empty lobby shouldn't land in the stats. Each league sets
 A game only opens for recording once **both sides can field that many** — i.e.
 `format × 2` players are seated on teams. Anything smaller is ignored: no stat
 match, no in-game "tracking active" announcement, nothing. This is set on the web
-(**League settings → Stat tracking → Minimum match format**) or with
+(**Manage → Play → Stat tracking → Minimum match format**) or with
 [`/config min-team-size`](/commands/config).
 
 The minimum applies to **every** match, including a ref's `.start` — an organizer
@@ -57,8 +57,10 @@ league; the `3v3` league ignores it. Neither league sees the other's data.
 <Steps>
 ### Register a server
 
-`/server add` stores the address and RCON credentials (encrypted at rest) and the
-collector connects within a minute. `/server status` is a live health check.
+`/server add` — or **Add server** on the Tracked servers card at
+**Manage → Play → Servers** on the web — stores the address and RCON credentials
+(encrypted at rest) and the collector connects within a minute. `/server status`
+is a live health check.
 
 ### Have players link their accounts
 
@@ -67,7 +69,7 @@ someone links are backfilled automatically once they do.
 
 ### Set your minimum format
 
-**League settings → Stat tracking** (or [`/config min-team-size`](/commands/config))
+**Manage → Play → Stat tracking** (or [`/config min-team-size`](/commands/config))
 decides the smallest game the collector records. Default is `3v3`.
 
 ### Pick an approval mode

@@ -32,6 +32,18 @@ series format, [minimum match format](/platform/stat-tracking), roster size, the
 channels Heir posts to, the ref role, stat approval, predictions, team colors,
 and branding.
 
+Sections are grouped by what they touch:
+
+| Group | Sections |
+|---|---|
+| **League** | League, Competition, Branding |
+| **Play** | Stat tracking, Servers, Schedule, Season, Predictions |
+| **Discord** | Connection, Channels |
+| **Account** | Audit log, Billing, Danger zone |
+
+Channels sits under **Discord**, not Play — it's wiring for the bot (where
+schedules, scores, and stat events post), not a league rule.
+
 Every settings page shares a **Discord-style save bar**: make changes across any
 tab and one bar tracks them all, with **Save changes** / **Discard**. Navigating
 away with unsaved changes is blocked (the screen shakes) until you save or
@@ -42,6 +54,39 @@ recorded in the league's audit log.
 <Callout type="info">
 The <strong>game</strong> is fixed at setup and cannot be changed — switching
 games would orphan every linked account, stat, and rating.
+</Callout>
+
+## The Discord health check
+
+If the bot has gone quiet, start here: **Manage → Discord → Connection →
+Detect issues** runs a live diagnosis of the Discord integration — the same
+checks the setup wizard ran, against the server as it is right now:
+
+- Heir is still in the server
+- Heir has the permissions it needs
+- Heir's role is high enough to manage team roles
+- Heir can see the full member list
+- Slash commands are authorized (the OAuth scope wasn't dropped on re-invite)
+- The league roles exist and setup has finished
+- The configured channels and ref role still exist — this catches settings
+  pointing at a channel someone deleted
+
+Every failing check comes with its fix attached:
+
+- **Re-invite link** — for a kicked bot or a missing slash-command scope. The
+  link lands on the same server with no server picker, so re-adding is one
+  click; re-authorizing also re-grants scopes and permissions.
+- **Open Channels** — jumps straight to the Channels section when a configured
+  channel or role no longer exists, so you can re-point it.
+- **Instructions** — role-position and permission problems explain exactly what
+  to change in Discord's own settings.
+
+Run it whenever "the bot stopped working" — it turns a vague symptom into a
+named cause in a few seconds, and **Check again** re-runs after each fix.
+
+<Callout type="info">
+The health check is <strong>owner-only</strong> — it enumerates your server's
+channels and roles, which Heir won't expose to anyone else.
 </Callout>
 
 ## The Schedule editor

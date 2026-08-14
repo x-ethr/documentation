@@ -32,17 +32,27 @@ tournaments, and public profiles.
   seeding, and live public brackets — see [Tournaments](/tournaments/overview)
 - **Results** — reported manually, or recorded automatically from tracked play
 - **Stat tracking** — live capture from your game servers, per round and per map
+- **Predictions** — a Crowns economy: members back a side on upcoming fixtures
+  and payouts settle when results land
 - **Profiles** — public player and team pages on [heir.gg](https://heir.gg)
 - **Configuration** — every rule above is per-guild; nothing is hard-coded to one league
 
+Every league gets all of it. There is no league-vs-tournaments mode and no
+feature toggles — teams, scheduling, tournaments, and predictions are simply on.
+
 ## The web management surface
 
-Owners and Organizers manage everything from `heir.gg/<league>/manage`. Settings
-are grouped into cards — **League**, **Competition**, **Channels**, **Stat
-tracking**, **Predictions**, and **Branding** — and a Discord-style save bar
-tracks unsaved changes across every card, blocking navigation until you save or
-discard. Every organizer action lands in an audit log with Discord mentions
-resolved to names.
+Owners and Organizers manage everything from `heir.gg/<league>/manage`. The
+settings nav is grouped by what the section touches:
+
+- **League** — League, Competition, Branding
+- **Play** — Stat tracking, Servers, Schedule, Season, Predictions
+- **Discord** — Connection (including the [health check](/platform/league-management#the-discord-health-check)), Channels
+- **Account** — Audit log, Billing, Danger zone
+
+A Discord-style save bar tracks unsaved changes across every section, blocking
+navigation until you save or discard. Every organizer action lands in an audit
+log with Discord mentions resolved to names.
 
 For Discord-linked leagues the web app doesn't write league data directly — it
 enqueues your changes for the bot, which re-authorizes you and applies them, so
@@ -79,7 +89,8 @@ activation never waits on billing.
 <Callout type="info">
 Legacy guilds that invited the bot directly (outside the wizard) may still be
 gated behind manual activation — if commands are blocked, run setup at
-[heir.gg/start](https://heir.gg/start) or contact <code>@peenie</code>.
+[heir.gg/start](https://heir.gg/start), or reach us at
+<a href="mailto:hello@heir.gg">hello@heir.gg</a> or <code>@peenie</code> on Discord.
 </Callout>
 
 ## A typical league

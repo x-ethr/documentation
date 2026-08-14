@@ -20,6 +20,9 @@ Example:
 NA,EU,OCE
 ```
 
+Input is forgiving: lowercase works (`na, eu`), and stray spaces and trailing
+commas are ignored.
+
 ### `max-roster-size`
 
 Maximum allowed roster size for teams in this guild. Whole number between 1 and 10
@@ -86,7 +89,7 @@ UTC minute for automatic generation.
 
 <Callout type="info">
 Per-region **slot times** (which nightly times each region plays, and how many
-slots) are configured on the web under **League settings → Competition**, not with
+slots) are configured on the web under **Manage → League → Competition**, not with
 `/config`.
 </Callout>
 
@@ -126,7 +129,9 @@ League series length used by the automatic result arbiter: Best of 1 / 3 / 5 / 7
 ### `min-rating-rounds`
 
 Rounds a player needs in a bucket before they receive a rating or leaderboard rank
-(whole number 1–1000; default 50).
+(whole number 1–1000; default 50). Until then their profile shows **"Stats are
+tracking — rating pending"** with a progress bar toward the threshold — see
+[Web Profiles](/platform/profiles).
 
 ### `stats-leaderboard-channel`
 

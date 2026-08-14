@@ -11,9 +11,9 @@ page shows the common flows both ways.
 After [installation](/getting-started/installation), finish configuring the league:
 
 - **Web** — open `heir.gg/<league>/manage`. Set regions, roster size, match
-  nights, series format, and scheduling under the **Competition** and **Stat
-  tracking** cards. The save bar tracks unsaved changes and blocks navigation
-  until you save or discard.
+  nights, and series format under **League → Competition**, and stat tracking
+  under **Play → Stat tracking**. The save bar tracks unsaved changes and blocks
+  navigation until you save or discard.
 - **Discord** — run `/sync-users`, then `/config` to set the same options.
 
 ## Player flow
@@ -24,9 +24,10 @@ To join a team:
 - A captain adds you — `/roster add` in Discord, or the **Roster** card on the
   team page on the web.
 
-To leave a team, use `/leave-team` (or the web team page). If the departing player
-is the captain, captaincy is reassigned automatically when possible; if they were
-the last player, the team is disbanded.
+To leave a team, use `/leave-team` (or the web team page). The command shows you
+what will happen before it does anything — a leaving captain hands captaincy to a
+random remaining member, and the last player leaving disbands the team — and asks
+you to confirm.
 
 ## Captain flow
 
@@ -61,7 +62,8 @@ Results can be recorded three ways:
 - **`/report-match`** — the winning captain reports in Discord.
 - **`/elo match`** or the schedule's **Report result** button — organizer entry.
 
-If a result must be undone, void the match (`/admin match-void`).
+If a result must be undone, void the match (`/admin match-void` — it shows the
+score and the elo it will reverse, then asks for confirmation).
 
 ## Running without Discord
 
