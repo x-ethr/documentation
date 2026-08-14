@@ -22,8 +22,10 @@ Create a new team role and database record.
 ## Notes
 
 - Team names cannot use reserved role names such as `Organizer`, `Captain`, or `Free Agent`
-- Team name max length is 35 characters; letters, numbers, and single spaces only
-- `color` must be a hex value such as `#FFFFFF`
+- Team name max length is 35 characters; letters, numbers, and spaces only.
+  Sloppy typing is coerced rather than rejected — leading/trailing spaces are
+  trimmed and doubled spaces collapse to one
+- `color` is a hex value such as `#FFFFFF` — the leading `#` is optional
 
 <Callout type="warning">
 Discord has a hard role limit per server. Archived disbanded team roles still count toward that limit until deleted manually.

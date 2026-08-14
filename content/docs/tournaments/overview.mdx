@@ -58,16 +58,26 @@ your server via the event outbox:
   profiles, and placement achievements are awarded.
 - **Cancel** — any open bets on the tournament are refunded.
 
+Where these land — and whether they post at all — is controlled by the
+**Tournament shouts** and **Prediction shouts** rows under
+**Manage → Discord → Channels**: each has an on/off switch and an optional
+dedicated channel that falls back to the announcements channel. See
+[Shouts](/platform/league-management#shouts).
+
 Match codes are unique across the whole league: a bracket match's `.start` code
 is reserved against every active weekly schedule, so a tournament match and a
 league fixture can never collide.
 
 ## Predictions
 
-If predictions are enabled, members can wager crowns on the next **scheduled,
-upcoming** tournament match — the same prediction flow as league fixtures. Give a
-match a start time (see [Running a tournament](/tournaments/running)) to open
-predictions on it.
+Members can wager Crowns on the next **scheduled, upcoming** tournament match —
+the same prediction flow as league fixtures, with no switch for organizers to
+flip. Give a match a start time (see
+[Running a tournament](/tournaments/running)) to open predictions on it.
+
+Predictions are public: the fixture page shows who backed which side — stakes
+and locked odds while predictions are open, actual payouts (winners first) once
+the match settles.
 
 ## Plans
 

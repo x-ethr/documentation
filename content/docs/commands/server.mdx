@@ -20,6 +20,10 @@ The password is stored **encrypted at rest** (AES-256-GCM). Servers are identifi
 by `host:port` — adding the same address twice errors with the existing label, and
 labels are unique per game. The collector connects within a minute of adding.
 
+The same registry lives on the web at **Manage → Play → Servers**: the
+**Add server** button on the Tracked servers card opens a dialog asking for the
+label, host, RCON port, and RCON password.
+
 The host must resolve to a **public** address. Private, loopback, link-local, and
 cloud-metadata addresses (`127.0.0.1`, `10.x`/`172.16–31.x`/`192.168.x`,
 `169.254.169.254`, …) are rejected — the collector will never be pointed at an
