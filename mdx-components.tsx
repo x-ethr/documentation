@@ -13,6 +13,16 @@ function Steps({children}: {children: ReactNode}) {
 	return <div className="heir-steps">{children}</div>;
 }
 
+/**
+ * The changelog timeline: content stays plain markdown (## month, ### release
+ * with an *italic* date) and the wrapper turns it into a gold rail — months as
+ * glowing diamond nodes, releases as ringed dots with date chips, bullets in
+ * soft cards. See globals.css .heir-changelog.
+ */
+function ChangelogTimeline({children}: {children: ReactNode}) {
+	return <div className="heir-changelog">{children}</div>;
+}
+
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
 	return {
 		...defaultMdxComponents,
@@ -20,6 +30,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 		Card,
 		Cards,
 		Steps,
+		ChangelogTimeline,
 		...components
 	};
 }
