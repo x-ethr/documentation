@@ -99,3 +99,91 @@ body {
   font-size: 0.8rem;
   font-weight: 700;
 }
+
+
+/* ---------------------------------------------------------------------------
+   Changelog timeline: months are glowing diamond nodes on the rail, each
+   release a ringed dot with a date chip (the h3's *italic* run), and the
+   bullets sit in a soft card. Content stays plain markdown.
+--------------------------------------------------------------------------- */
+.heir-changelog {
+  position: relative;
+  border-left: 1px solid var(--border);
+  margin-left: 0.5rem;
+  padding-left: 1.75rem;
+}
+
+.heir-changelog h2 {
+  position: relative;
+  margin: 3.25rem 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.heir-changelog h2:first-of-type {
+  margin-top: 1rem;
+}
+
+.heir-changelog h2::before {
+  content: "";
+  position: absolute;
+  left: -2.06rem;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  transform: translateY(-50%) rotate(45deg);
+  background: var(--primary);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--primary) 70%, transparent);
+}
+
+.heir-changelog h3 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.1rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.heir-changelog h3::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  width: 0.52rem;
+  height: 0.52rem;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background: var(--background);
+  border: 2px solid var(--primary);
+}
+
+.heir-changelog h3 em {
+  font-style: normal;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.14rem 0.6rem;
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+}
+
+.heir-changelog h3 + ul {
+  margin-top: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: color-mix(in oklab, var(--card) 55%, transparent);
+  padding: 0.9rem 1.15rem 0.9rem 2.15rem;
+  box-shadow: inset 0 1px 0 0 color-mix(in oklab, white 4%, transparent);
+}
+
+.heir-changelog h3 + ul li strong {
+  color: var(--foreground);
+}
